@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="El Profesor Carlos — Formación en comunicación y liderazgo para profesionales que quieren voz propia." />
+  <title>El Profesor Carlos | Comunicación con método. Liderazgo con propósito.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --bg:          #0b132b;
+      --text:        #f8f9fa;
+      --muted:       #adb5bd;
+      --copper:      #b87333;
+      --gold:        #d4af37;
+      --glass-bg:    rgba(11, 19, 43, 0.50);
+      --glass-bd:    rgba(248, 249, 250, 0.10);
+      --ease:        cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Montserrat", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── THREE.JS CANVAS — fixed background, no pointer intercept ── */
+    #webgl-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      display: block;
+    }
+
+    /* ── LAYOUT ── */
+    .content { position: relative; z-index: 1; }
+
+    .wrap {
+      width: 100%;
+      max-width: 1260px;
+      margin: 0 auto;
+      padding-left:  clamp(1.5rem, 5vw, 4rem);
+      padding-right: clamp(1.5rem, 5vw, 4rem);
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem clamp(1.5rem, 5vw, 4rem);
+      transition: background 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.is-scrolled {
+      background: rgba(9, 14, 32, 0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: rgba(248, 249, 250, 0.07);
+    }
+    .nav__logo {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav__logo em { font-style: normal; color: var(--copper); }
+    .nav__group {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+    }
+    .nav__link {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav__link:hover { color: var(--text); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.75rem;
+      font-family: inherit;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.4s var(--ease), box-shadow 0.4s ease, color 0.25s, border-color 0.25s;
+    }
+    .btn--primary {
+      background: linear-gradient(130deg, var(--copper) 0%, #8a5020 100%);
+      color: var(--text);
+      box-shadow: 0 4px 22px rgba(184, 115, 51, 0.28);
+    }
+    .btn--primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 38px rgba(212, 175, 55, 0.28);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(248, 249, 250, 0.22);
+    }
+    .btn--ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .btn--sm { padding: 0.62rem 1.2rem; font-size: 0.68rem; }
+
+    /* ── SECTION LABEL ── */
+    .label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.65;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════ */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 2rem;
+      padding-top: 6rem;
+      padding-bottom: 4rem;
+    }
+    .hero__copy {}
+    .hero__eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 1.5rem;
+    }
+    .hero__h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.75rem;
+      text-wrap: balance;
+    }
+    .hero__h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text);
+    }
+    .hero__sub {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+      color: var(--muted);
+      max-width: 38ch;
+      margin-bottom: 2.75rem;
+      line-height: 1.78;
+      font-weight: 400;
+    }
+    .hero__ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+    /* Photo column */
+    .hero__visual {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 100%;
+      min-height: 520px;
+    }
+    .hero__photo {
+      width: 85%;
+      max-height: 82svh;
+      min-height: 280px;
+      display: block;
+      background: linear-gradient(155deg, rgba(184, 115, 51, 0.45) 0%, rgba(26, 40, 68, 0.85) 42%, #0b132b 100%);
+      -webkit-mask-image:
+        radial-gradient(ellipse 80% 88% at 52% 38%, black 28%, rgba(0,0,0,0.6) 52%, transparent 72%);
+      mask-image:
+        radial-gradient(ellipse 80% 88% at 52% 38%, black 28%, rgba(0,0,0,0.6) 52%, transparent 72%);
+    }
+
+    /* ═══════════════════════════════════════════════
+       TICKER
+    ═══════════════════════════════════════════════ */
+    .ticker-belt {
+      overflow: hidden;
+      border-top: 1px solid rgba(248, 249, 250, 0.07);
+      border-bottom: 1px solid rgba(248, 249, 250, 0.07);
+      padding: 0.85rem 0;
+      background: rgba(9, 14, 32, 0.28);
+    }
+    .ticker-track {
+      display: flex;
+      gap: 3.5rem;
+      width: max-content;
+      animation: ticker 24s linear infinite;
+    }
+    .ticker-belt:hover .ticker-track { animation-play-state: paused; }
+    .ticker-item {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(173, 181, 189, 0.48);
+      white-space: nowrap;
+    }
+    .ticker-item .dot { color: var(--copper); margin: 0 0.35rem; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ═══════════════════════════════════════════════
+       VALUE PROPOSITION
+    ═══════════════════════════════════════════════ */
+    .value {
+      min-height: 72vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: clamp(5rem, 12vw, 9rem);
+      padding-bottom: clamp(4rem, 10vw, 8rem);
+    }
+    .value__big {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.1rem, 4.5vw, 3.85rem);
+      font-weight: 500;
+      line-height: 1.28;
+      max-width: 22ch;
+      text-wrap: balance;
+    }
+    .value__big strong { font-weight: 700; }
+    .value__body {
+      margin-top: 2.5rem;
+      font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+      color: var(--muted);
+      max-width: 50ch;
+      line-height: 1.85;
+    }
+
+    /* ═══════════════════════════════════════════════
+       METHODOLOGY
+    ═══════════════════════════════════════════════ */
+    .method {
+      padding-top: 0;
+      padding-bottom: clamp(4rem, 10vw, 8rem);
+    }
+    .method__head {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.85rem, 3.5vw, 2.65rem);
+      font-weight: 600;
+      max-width: 22ch;
+      line-height: 1.22;
+      margin-bottom: 3.5rem;
+      text-wrap: balance;
+    }
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+    .pillar { border-top: 1px solid rgba(248, 249, 250, 0.12); padding-top: 2rem; }
+    .pillar__n {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--copper);
+      margin-bottom: 1.1rem;
+    }
+    .pillar__title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+    }
+    .pillar__body { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    /* ═══════════════════════════════════════════════
+       CATALOG
+    ═══════════════════════════════════════════════ */
+    .catalog {
+      padding-top: clamp(4rem, 8vw, 6rem);
+      padding-bottom: clamp(5rem, 12vw, 9rem);
+    }
+    .catalog__meta { margin-bottom: 3rem; }
+    .catalog__h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .catalog__sub { color: var(--muted); font-size: 0.95rem; max-width: 52ch; line-height: 1.7; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    /* Glassmorphism — 3D canvas is visible, blurred, behind each card */
+    .card {
+      padding: 2.25rem 2rem 2rem;
+      border-radius: 3px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-bd);
+      transition: transform 0.5s var(--ease), box-shadow 0.5s ease, border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(184, 115, 51, 0.38);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.42), 0 0 52px rgba(184, 115, 51, 0.07);
+    }
+    .card__n {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--copper);
+      margin-bottom: 1.25rem;
+    }
+    .card__title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+    }
+    .card__body {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1.85rem;
+    }
+    .card__link {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: gap 0.35s var(--ease);
+      width: fit-content;
+    }
+    .card__link:hover { gap: 0.95rem; }
+    .card__link::after { content: '→'; }
+
+    /* ═══════════════════════════════════════════════
+       ABOUT CARLOS
+    ═══════════════════════════════════════════════ */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 6rem;
+      align-items: center;
+      padding-top: 0;
+      padding-bottom: clamp(5rem, 12vw, 9rem);
+    }
+    .about__frame {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .about__frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(11, 19, 43, 0.92) 100%);
+      pointer-events: none;
+    }
+    /* Decorative offset border */
+    .about__frame::before {
+      content: '';
+      position: absolute;
+      inset: 0.75rem -0.75rem -0.75rem 0.75rem;
+      border: 1px solid rgba(184, 115, 51, 0.16);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .about__frame .about__photo {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      display: block;
+      filter: brightness(0.88) contrast(1.06);
+      background: linear-gradient(165deg, #1a2844 0%, rgba(184, 115, 51, 0.28) 48%, #0b132b 100%);
+    }
+    .about__copy {}
+    .about__h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.75rem, 3vw, 2.45rem);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+    .about__p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.88;
+      margin-bottom: 1.2rem;
+    }
+    .about__p em {
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      color: var(--text);
+    }
+    .creds {
+      margin-top: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .cred {
+      display: flex;
+      align-items: baseline;
+      gap: 0.85rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .cred::before { content: '—'; color: var(--copper); font-weight: 700; flex-shrink: 0; }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER / LEAD MAGNET
+    ═══════════════════════════════════════════════ */
+    .footer {
+      border-top: 1px solid rgba(248, 249, 250, 0.08);
+      width: 100%;
+    }
+    .footer__inner {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: clamp(4.5rem, 12vw, 9rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+    }
+    .footer__h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 600;
+      margin-bottom: 0.85rem;
+      max-width: 16ch;
+      line-height: 1.15;
+      text-wrap: balance;
+    }
+    .footer__lead {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 48ch;
+      margin-bottom: 2.5rem;
+      line-height: 1.78;
+    }
+    .footer__form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      max-width: 520px;
+      margin-bottom: 3.25rem;
+    }
+    .footer__form input[type="email"] {
+      flex: 1 1 220px;
+      padding: 0.9rem 1.2rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      border: 1px solid rgba(248, 249, 250, 0.15);
+      border-radius: 2px;
+      background: rgba(248, 249, 250, 0.05);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.25s;
+    }
+    .footer__form input::placeholder { color: rgba(173, 181, 189, 0.65); }
+    .footer__form input:focus { border-color: var(--copper); }
+    .footer__note { font-size: 0.7rem; color: rgba(173, 181, 189, 0.52); width: 100%; margin-top: 0.1rem; }
+    .footer__social {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.25rem;
+    }
+    .footer__social a {
+      color: var(--muted);
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .footer__social a:hover { color: var(--gold); }
+    .footer__legal { font-size: 0.68rem; color: rgba(173, 181, 189, 0.38); }
+
+    /* ═══════════════════════════════════════════════
+       TWEAKS PANEL
+    ═══════════════════════════════════════════════ */
+    #tweaks-panel {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 9000;
+      width: 255px;
+      background: rgba(7, 12, 28, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(248, 249, 250, 0.1);
+      border-radius: 4px;
+      padding: 1.2rem 1.2rem 1rem;
+      display: none;
+      font-family: "Montserrat", sans-serif;
+    }
+    #tweaks-panel.active { display: block; }
+    #tweaks-panel h4 {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.1rem;
+    }
+    #tweaks-close {
+      position: absolute;
+      top: 0.85rem; right: 0.85rem;
+      background: none; border: none;
+      color: var(--muted); cursor: pointer;
+      font-size: 0.88rem; line-height: 1; padding: 3px;
+    }
+    #tweaks-close:hover { color: var(--text); }
+    .tw-row { margin-bottom: 0.85rem; }
+    .tw-row label {
+      display: block;
+      font-size: 0.66rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 0.32rem;
+      letter-spacing: 0.04em;
+    }
+    .tw-row input[type=range] { width: 100%; accent-color: var(--copper); cursor: pointer; }
+    .tw-row select {
+      width: 100%;
+      background: rgba(248, 249, 250, 0.05);
+      border: 1px solid rgba(248, 249, 250, 0.1);
+      color: var(--text);
+      padding: 0.32rem 0.6rem;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 0.76rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 940px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 8rem;
+        text-align: left;
+      }
+      .hero__visual { display: none; }
+      .pillars { grid-template-columns: 1fr; gap: 0; }
+      .about { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about__frame { display: none; }
+      .nav__group .nav__link { display: none; }
+    }
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .btn, .card { transition: none; }
+      .card:hover { transform: none; }
+      .ticker-track { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3D BACKGROUND CANVAS -->
+  <canvas id="webgl-canvas" aria-hidden="true"></canvas>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Navegación principal">
+    <a class="nav__logo" href="#hero">El Profesor <em>Carlos</em></a>
+    <div class="nav__group">
+      <a class="nav__link" href="#catalogo">Cursos</a>
+      <a class="nav__link" href="#carlos">Carlos</a>
+      <a class="btn btn--primary btn--sm" href="#contacto">Comenzar ahora</a>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="wrap hero" id="hero">
+      <div class="hero__copy">
+        <p class="hero__eyebrow">Academia digital · Comunicación y liderazgo</p>
+        <h1 class="hero__h1">Tu conocimiento<br>no basta si tu<br><em>voz</em> no resuena.</h1>
+        <p class="hero__sub">De experto técnico a líder que inspira. Comunicación con método. Liderazgo con propósito.</p>
+        <div class="hero__ctas">
+          <a class="btn btn--primary" href="#catalogo">Descubre el método</a>
+          <a class="btn btn--ghost" href="#catalogo">Ver cursos</a>
+        </div>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <div class="hero__photo" role="presentation" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ═══ TICKER ═══ -->
+    <div class="ticker-belt" aria-hidden="true">
+      <div class="ticker-track">
+        <span class="ticker-item">Oratoria y presentaciones<span class="dot">·</span></span>
+        <span class="ticker-item">Comunicación asertiva<span class="dot">·</span></span>
+        <span class="ticker-item">Liderazgo y equipos<span class="dot">·</span></span>
+        <span class="ticker-item">Storytelling profesional<span class="dot">·</span></span>
+        <span class="ticker-item">Gestión del discurso<span class="dot">·</span></span>
+        <span class="ticker-item">Mentoría ejecutiva<span class="dot">·</span></span>
+        <span class="ticker-item">Oratoria y presentaciones<span class="dot">·</span></span>
+        <span class="ticker-item">Comunicación asertiva<span class="dot">·</span></span>
+        <span class="ticker-item">Liderazgo y equipos<span class="dot">·</span></span>
+        <span class="ticker-item">Storytelling profesional<span class="dot">·</span></span>
+        <span class="ticker-item">Gestión del discurso<span class="dot">·</span></span>
+        <span class="ticker-item">Mentoría ejecutiva<span class="dot">·</span></span>
+      </div>
+    </div>
+
+    <!-- ═══ VALUE PROPOSITION ═══ -->
+    <section class="wrap value" id="propuesta">
+      <p class="label">Propuesta de valor</p>
+      <p class="value__big">La comunicación es el <strong>último diferencial</strong> de los profesionales brillantes.</p>
+      <p class="value__body">No faltan expertos técnicos en el mercado. Faltan profesionales que articulen con precisión, lideren con convicción y conecten auténticamente con su audiencia. Eso es lo que construimos aquí: no trucos de oratoria, sino un método.</p>
+    </section>
+
+    <!-- ═══ METHODOLOGY ═══ -->
+    <section class="wrap method" id="metodo">
+      <p class="label">El método</p>
+      <h2 class="method__head">Tres pilares. Un sistema. Resultados medibles.</h2>
+      <div class="pillars">
+        <div class="pillar">
+          <p class="pillar__n">01</p>
+          <h3 class="pillar__title">Voz y presencia</h3>
+          <p class="pillar__body">Proyección, ritmo y lenguaje corporal. El 55% del mensaje es no verbal: aprende a controlarlo con precisión sostenida.</p>
+        </div>
+        <div class="pillar">
+          <p class="pillar__n">02</p>
+          <h3 class="pillar__title">Claridad y estructura</h3>
+          <p class="pillar__body">Argumentación, narrativa y síntesis ejecutiva. Construye discursos que se recuerdan, convencen y permanecen.</p>
+        </div>
+        <div class="pillar">
+          <p class="pillar__n">03</p>
+          <h3 class="pillar__title">Liderazgo comunicativo</h3>
+          <p class="pillar__body">Conversaciones difíciles, feedback y gestión del conflicto. Comunica desde la autoridad, no desde el ego.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CATALOG ═══ -->
+    <section class="wrap catalog" id="catalogo">
+      <header class="catalog__meta">
+        <p class="label">Programas pilar</p>
+        <h2 class="catalog__h2">Formación para profesionales</h2>
+        <p class="catalog__sub">Tres líneas de trabajo para quienes necesitan voz propia en salas de juntas, aulas y presentaciones de alto impacto.</p>
+      </header>
+      <div class="cards">
+        <article class="card">
+          <p class="card__n">01 · Oratoria</p>
+          <h3 class="card__title">Oratoria y presentaciones eficaces</h3>
+          <p class="card__body">Habla en público con estructura, calma y convicción. Proyección vocal, dominio del miedo escénico y discursos que perduran en la memoria de la audiencia.</p>
+          <a href="#contacto" class="card__link">Más información</a>
+        </article>
+        <article class="card">
+          <p class="card__n">02 · Comunicación</p>
+          <h3 class="card__title">Comunicación asertiva</h3>
+          <p class="card__body">Mensajes claros en cualquier medio: reuniones, correos y negociaciones. Presencia sin ruido. Influencia sin imposición.</p>
+          <a href="#contacto" class="card__link">Más información</a>
+        </article>
+        <article class="card">
+          <p class="card__n">03 · Liderazgo</p>
+          <h3 class="card__title">Liderazgo y equipos</h3>
+          <p class="card__body">Inspirar, alinear y decidir con criterio. Liderazgo situacional, feedback de alto impacto y conversaciones difíciles con método.</p>
+          <a href="#contacto" class="card__link">Más información</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="wrap about" id="carlos">
+      <div class="about__frame">
+        <div class="about__photo" role="img" aria-label="Carlos, formador en comunicación y liderazgo"></div>
+      </div>
+      <div class="about__copy">
+        <p class="label">Quién es Carlos</p>
+        <h2 class="about__h2">Comunicador, formador y estratega del mensaje.</h2>
+        <p class="about__p">Con más de una década entrenando a ejecutivos, emprendedores y universitarios, Carlos ha perfeccionado un método que combina psicología del discurso, técnica vocal y liderazgo práctico aplicado.</p>
+        <p class="about__p">No enseña a hablar. Enseña a <em>resonar</em>.</p>
+        <div class="creds">
+          <p class="cred">Formador de directivos y equipos de alto rendimiento</p>
+          <p class="cred">Consultor en comunicación estratégica para empresas</p>
+          <p class="cred">Ponente en programas ejecutivos, MBA y conferencias</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER / LEAD MAGNET ═══ -->
+    <footer class="footer" id="contacto">
+      <div class="footer__inner">
+        <p class="label">Primeros pasos</p>
+        <h2 class="footer__h2">Accede a la guía gratuita</h2>
+        <p class="footer__lead">Una introducción al método: fundamentos de comunicación profesional condensados en formato práctico. Sin spam. Solo contenido que respeta tu tiempo.</p>
+        <form class="footer__form" id="lead-form" novalidate>
+          <input type="email" name="email" placeholder="Tu correo profesional" required autocomplete="email" aria-label="Correo electrónico" />
+          <button type="submit" class="btn btn--primary">Quiero acceso</button>
+          <p class="footer__note" id="form-ok" hidden>Perfecto. Revisa tu bandeja — te escribimos en breve.</p>
+        </form>
+        <nav class="footer__social" aria-label="Redes sociales">
+          <a href="#" rel="noopener noreferrer">LinkedIn</a>
+          <a href="#" rel="noopener noreferrer">Instagram</a>
+          <a href="#" rel="noopener noreferrer">YouTube</a>
+        </nav>
+        <p class="footer__legal">© 2026 El Profesor Carlos. Comunicación y liderazgo para profesionales.</p>
+      </div>
+    </footer>
+
+  </div><!-- /content -->
+
+  <!-- TWEAKS PANEL -->
+  <div id="tweaks-panel" role="dialog" aria-label="Panel de ajustes visuales">
+    <h4>Tweaks</h4>
+    <button id="tweaks-close" aria-label="Cerrar">✕</button>
+    <div class="tw-row">
+      <label for="tw-amp">Intensidad de onda</label>
+      <input type="range" id="tw-amp" min="0.1" max="1.0" step="0.05" value="0.38" />
+    </div>
+    <div class="tw-row">
+      <label for="tw-spd">Velocidad de onda</label>
+      <input type="range" id="tw-spd" min="0.2" max="2.0" step="0.1" value="0.9" />
+    </div>
+    <div class="tw-row">
+      <label for="tw-accent">Color de acento</label>
+      <select id="tw-accent">
+        <option value="copper">Cobre clásico</option>
+        <option value="gold">Dorado suave</option>
+        <option value="slate">Azul pizarra</option>
+      </select>
+    </div>
+    <div class="tw-row">
+      <label for="tw-glass">Opacidad del vidrio</label>
+      <input type="range" id="tw-glass" min="0.15" max="0.85" step="0.05" value="0.50" />
+    </div>
+  </div>
+
+  <!-- CDN: Three.js r128 + GSAP 3.12.5 + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+    /* ════════════════════════════════════════════════════════════════════
+       EL PROFESOR CARLOS — main script
+       Sections: 1) Config · 2) Tweaks · 3) Nav · 4) Form · 5) GSAP · 6) Three.js
+    ════════════════════════════════════════════════════════════════════ */
+
+    /* ── 1. CONFIG ──
+       EDITMODE-BEGIN / END brackets let the Tweaks system persist changes to disk. */
+    var CFG = /*EDITMODE-BEGIN*/{
+      "waveAmplitude": 0.35,
+      "waveSpeed": 0.7,
+      "accentColor": "slate",
+      "glassOpacity": 0.4
+    }/*EDITMODE-END*/;
+
+    /* Accent colour palettes */
+    var PALETTES = {
+      copper: { copper: '#b87333', gold: '#d4af37', meshHex: 0xb87333 },
+      gold:   { copper: '#d4af37', gold: '#f0c040', meshHex: 0xd4af37 },
+      slate:  { copper: '#5b8fa8', gold: '#7fbcdb', meshHex: 0x5b8fa8 }
+    };
+
+    function applyAccent(key) {
+      var p = PALETTES[key] || PALETTES.copper;
+      document.documentElement.style.setProperty('--copper', p.copper);
+      document.documentElement.style.setProperty('--gold',   p.gold);
+      if (window.__waveMat) window.__waveMat.color.set(p.meshHex);
+    }
+
+    /* ── 2. TWEAKS PANEL ──
+       Register listener FIRST, then announce availability. */
+    var $panel = document.getElementById('tweaks-panel');
+
+    window.addEventListener('message', function(ev) {
+      if (!ev.data) return;
+      if (ev.data.type === '__activate_edit_mode')   $panel.classList.add('active');
+      if (ev.data.type === '__deactivate_edit_mode') $panel.classList.remove('active');
+    });
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+    document.getElementById('tweaks-close').addEventListener('click', function() {
+      $panel.classList.remove('active');
+      window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+    });
+
+    function pushTweak(key, val) {
+      var edits = {}; edits[key] = val;
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: edits }, '*');
+    }
+
+    document.getElementById('tw-amp').addEventListener('input', function() {
+      CFG.waveAmplitude = parseFloat(this.value);
+      pushTweak('waveAmplitude', CFG.waveAmplitude);
+    });
+    document.getElementById('tw-spd').addEventListener('input', function() {
+      CFG.waveSpeed = parseFloat(this.value);
+      pushTweak('waveSpeed', CFG.waveSpeed);
+    });
+    document.getElementById('tw-accent').addEventListener('change', function() {
+      CFG.accentColor = this.value;
+      applyAccent(CFG.accentColor);
+      pushTweak('accentColor', CFG.accentColor);
+    });
+    document.getElementById('tw-glass').addEventListener('input', function() {
+      CFG.glassOpacity = parseFloat(this.value);
+      document.documentElement.style.setProperty('--glass-bg', 'rgba(11,19,43,' + CFG.glassOpacity + ')');
+      pushTweak('glassOpacity', CFG.glassOpacity);
+    });
+
+    /* ── 3. NAV ── */
+    window.addEventListener('scroll', function() {
+      document.getElementById('nav').classList.toggle('is-scrolled', window.scrollY > 72);
+    }, { passive: true });
+
+    /* ── 4. FORM ── */
+    document.getElementById('lead-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('form-ok').hidden = false;
+      this.reset();
+    });
+
+    /* ── 5. GSAP SCROLL ANIMATIONS ── */
+    gsap.registerPlugin(ScrollTrigger);
+    var noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!noMotion) {
+
+      /* Hero — staggered entrance on page load */
+      gsap.timeline({ delay: 0.25 })
+        .from('.hero__eyebrow',  { opacity: 0, y: 14, duration: 0.85, ease: 'power3.out' })
+        .from('.hero__h1',       { opacity: 0, y: 52, duration: 1.30, ease: 'power3.out' }, '-=0.55')
+        .from('.hero__sub',      { opacity: 0, y: 24, duration: 1.00, ease: 'power3.out' }, '-=0.75')
+        .from('.hero__ctas > *', { opacity: 0, y: 18, duration: 0.80, stagger: 0.12, ease: 'power3.out' }, '-=0.65')
+        .from('.hero__photo',    { opacity: 0, x: 30, duration: 1.40, ease: 'power3.out' }, '-=1.10');
+
+      gsap.from('.ticker-belt',  { opacity: 0, duration: 1.2, delay: 1.4, ease: 'power2.out' });
+
+      /* Value prop */
+      gsap.from(['.value .label', '.value__big', '.value__body'], {
+        scrollTrigger: { trigger: '#propuesta', start: 'top 72%' },
+        opacity: 0, y: 38, duration: 1.0, stagger: 0.14, ease: 'power3.out'
+      });
+
+      /* Method */
+      gsap.from(['#metodo .label', '.method__head'], {
+        scrollTrigger: { trigger: '#metodo', start: 'top 74%' },
+        opacity: 0, y: 30, duration: 0.9, stagger: 0.1, ease: 'power3.out'
+      });
+      gsap.from('.pillar', {
+        scrollTrigger: { trigger: '.pillars', start: 'top 76%' },
+        opacity: 0, y: 36, duration: 0.85, stagger: 0.14, ease: 'power3.out'
+      });
+
+      /* Catalog */
+      gsap.from(['#catalogo .label', '.catalog__h2', '.catalog__sub'], {
+        scrollTrigger: { trigger: '#catalogo', start: 'top 74%' },
+        opacity: 0, y: 28, duration: 0.9, stagger: 0.1, ease: 'power3.out'
+      });
+      gsap.from('.card', {
+        scrollTrigger: { trigger: '.cards', start: 'top 78%' },
+        opacity: 0, y: 52, duration: 1.0, stagger: 0.14, ease: 'power3.out'
+      });
+
+      /* About */
+      gsap.from('.about__frame', {
+        scrollTrigger: { trigger: '#carlos', start: 'top 72%' },
+        opacity: 0, x: -36, duration: 1.2, ease: 'power3.out'
+      });
+      gsap.from('.about__copy > *', {
+        scrollTrigger: { trigger: '#carlos', start: 'top 70%' },
+        opacity: 0, y: 28, duration: 0.9, stagger: 0.1, ease: 'power3.out'
+      });
+
+      /* Footer */
+      gsap.from('.footer__inner > *', {
+        scrollTrigger: { trigger: '.footer', start: 'top 82%' },
+        opacity: 0, y: 24, duration: 0.85, stagger: 0.08, ease: 'power3.out'
+      });
+    }
+
+    /* ── 6. THREE.JS — "voz y fluidez" wave surface ──────────────────── */
+    (function initThree() {
+      if (typeof THREE === 'undefined') return;
+
+      var canvas   = document.getElementById('webgl-canvas');
+
+      /* Renderer — matches full viewport, respects devicePixelRatio (capped at 2) */
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
+      renderer.setClearColor(0x0b132b, 1);
+      renderer.outputEncoding      = THREE.sRGBEncoding;
+      renderer.physicallyCorrectLights = true;
+
+      var scene  = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+      camera.position.set(0, 0.5, 7.2);
+
+      /* ── Lighting setup:
+            Ambient:  cool deep-blue fill — preserves the night atmosphere
+            Dir:      warm cream from upper-right — primary definition
+            PtA (gold): warm accent from left — rim / copper highlights
+            PtB (blue): cool fill from right — depth separation */
+      scene.add(new THREE.AmbientLight(0x2d3a5a, 0.4));
+
+      var dirLight = new THREE.DirectionalLight(0xffe8d0, 0.92);
+      dirLight.position.set(5, 8, 10);
+      scene.add(dirLight);
+
+      var ptA = new THREE.PointLight(0xd4af37, 0.72, 26);
+      ptA.position.set(-4.5, 3, 5);
+      scene.add(ptA);
+
+      var ptB = new THREE.PointLight(0x3a6080, 0.30, 22);
+      ptB.position.set(6, -2, 4);
+      scene.add(ptB);
+
+      /* ── Wave geometry:
+            PlaneGeometry, 16×11 world units.
+            More subdivisions on desktop for smoother normals + highlights.
+            Vertices displaced in Z every frame to simulate a resonant wave surface. */
+      var SEG = window.innerWidth < 768 ? 48 : 72;
+      var geo = new THREE.PlaneGeometry(16, 11, SEG, SEG);
+
+      /* Store base Z values so displacement is always relative to the flat plane */
+      var posAttr = geo.attributes.position;
+      var baseZ   = new Float32Array(posAttr.count);
+      for (var i = 0; i < posAttr.count; i++) { baseZ[i] = posAttr.getZ(i); }
+
+      /* ── Material: metallic copper with emissive warm underfill ──
+            metalness 0.58 + roughness 0.30 → mirrors but not chrome.
+            Exposed as window.__waveMat for Tweaks accent-color changes. */
+      var mat = new THREE.MeshStandardMaterial({
+        color:             new THREE.Color(0xb87333),
+        metalness:         0.58,
+        roughness:         0.30,
+        emissive:          new THREE.Color(0x1e0800),
+        emissiveIntensity: 0.14,
+        side:              THREE.DoubleSide,
+      });
+      window.__waveMat = mat;
+
+      var mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(0, 0, -1.6);
+      mesh.rotation.y = -0.18;
+      scene.add(mesh);
+
+      /* Wireframe twin — extremely faint gold grid for depth / tech feel */
+      var wireMat  = new THREE.MeshBasicMaterial({ color: 0xd4af37, wireframe: true, opacity: 0.022, transparent: true });
+      var wireMesh = new THREE.Mesh(geo, wireMat);
+      scene.add(wireMesh);
+
+      /* ── Mouse / touch tracking
+            Canvas has pointer-events:none — listen on window instead. */
+      var mou = { x: 0, y: 0, tx: 0, ty: 0 };
+      window.addEventListener('mousemove', function(e) {
+        mou.tx = (e.clientX  / window.innerWidth)  * 2 - 1;
+        mou.ty = -(e.clientY / window.innerHeight) * 2 + 1;
+      }, { passive: true });
+      window.addEventListener('touchmove', function(e) {
+        if (!e.touches.length) return;
+        mou.tx = (e.touches[0].clientX  / window.innerWidth)  * 2 - 1;
+        mou.ty = -(e.touches[0].clientY / window.innerHeight) * 2 + 1;
+      }, { passive: true });
+
+      /* ── Scroll progress via GSAP ScrollTrigger scrub ── */
+      var scrub = { v: 0 };
+      if (!noMotion && typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.create({
+          trigger: document.body,
+          start: 'top top',
+          end:   'bottom bottom',
+          scrub: 0.8,
+          onUpdate: function(st) { scrub.v = st.progress; },
+        });
+      }
+
+      /* ── Resize: keep canvas full-viewport, update camera aspect ── */
+      function resize() {
+        var w = window.innerWidth, h = window.innerHeight;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        renderer.setPixelRatio(dpr);
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+
+      /* ── Animation loop ── */
+      var clock  = new THREE.Clock();
+      var frame  = 0;
+      var tmpV   = new THREE.Vector3();
+
+      function tick() {
+        requestAnimationFrame(tick);
+        var t  = clock.getElapsedTime();
+        var sp = scrub.v;
+
+        /* Smooth mouse lerp — gradual tracking, not jittery */
+        mou.x += (mou.tx - mou.x) * 0.055;
+        mou.y += (mou.ty - mou.y) * 0.055;
+
+        /* Scroll-linked mesh transform:
+             Y-rotation reveals the surface face-on as the user scrolls.
+             Z-position pulls it closer for a "zoom into" feel.
+             X-rotation adds a subtle forward tilt at depth. */
+        mesh.rotation.y = -0.18 + sp * 0.62;
+        mesh.rotation.x = sp * 0.13;
+        mesh.position.z = -1.6 + sp * 1.7;
+        wireMesh.rotation.copy(mesh.rotation);
+        wireMesh.position.copy(mesh.position);
+
+        /* Wave displacement parameters from CFG (live-editable via Tweaks) */
+        var amp = CFG.waveAmplitude + mou.y * 0.06;
+        var spd = CFG.waveSpeed;
+        var mx  = mou.x * 0.48;
+        var my  = mou.y * 0.36;
+
+        /* Displace all vertices along Z.
+             w1 — low-freq "breathing" envelope:  main wave body
+             w2 — mid-freq shimmer:               detail layer
+             wM — mouse perturbation:             real-time interaction ripple */
+        for (var i = 0; i < posAttr.count; i++) {
+          tmpV.fromBufferAttribute(posAttr, i);
+          var x = tmpV.x, y = tmpV.y;
+          var w1 = Math.sin(x * 1.05 + t * spd * 0.88) * Math.cos(y * 0.82 + t * spd * 0.64);
+          var w2 = Math.sin(x * 2.15 + y * 1.32 + t * spd * 1.12) * 0.28;
+          var wM = mx * Math.sin(y * 1.75 + t * 0.88) + my * Math.cos(x * 1.75 + t * 0.72);
+          posAttr.setZ(i, baseZ[i] + amp * w1 + 0.18 * w2 + 0.17 * wM);
+        }
+        posAttr.needsUpdate = true;
+
+        /* Recompute vertex normals every 2nd frame — good enough for smooth
+           Phong-style lighting at 60fps, cuts normal cost by 50%. */
+        frame++;
+        if (frame % 2 === 0) geo.computeVertexNormals();
+
+        /* Camera micro-parallax — subtle depth cue from mouse movement */
+        if (!noMotion) {
+          camera.position.x += (mou.x * 0.28 - camera.position.x) * 0.04;
+          camera.position.y += (0.5 + mou.y * 0.14 - camera.position.y) * 0.04;
+          camera.lookAt(0, 0, -2);
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      tick();
+    })();
+    /* ── end Three.js ── */
+
+  </script>
+</body>
+</html>
