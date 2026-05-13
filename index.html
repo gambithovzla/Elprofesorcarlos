@@ -14,8 +14,9 @@
       --bg:          #0b132b;
       --text:        #f8f9fa;
       --muted:       #adb5bd;
-      --copper:      #b87333;
-      --gold:        #d4af37;
+      /* Acentos por defecto: azul pizarra (JS Tweaks puede sustituirlos) */
+      --copper:      #6b93ad;
+      --gold:        #8fa4b5;
       --glass-bg:    rgba(11, 19, 43, 0.50);
       --glass-bd:    rgba(248, 249, 250, 0.10);
       --ease:        cubic-bezier(0.16, 1, 0.3, 1);
@@ -116,20 +117,20 @@
       transition: transform 0.4s var(--ease), box-shadow 0.4s ease, color 0.25s, border-color 0.25s;
     }
     .btn--primary {
-      background: linear-gradient(130deg, var(--copper) 0%, #8a5020 100%);
+      background: linear-gradient(130deg, var(--copper) 0%, #4a6b82 100%);
       color: var(--text);
-      box-shadow: 0 4px 22px rgba(184, 115, 51, 0.28);
+      box-shadow: 0 4px 22px rgba(90, 130, 155, 0.28);
     }
     .btn--primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 38px rgba(212, 175, 55, 0.28);
+      box-shadow: 0 10px 36px rgba(100, 140, 165, 0.32);
     }
     .btn--ghost {
       background: transparent;
       color: var(--text);
       border: 1px solid rgba(248, 249, 250, 0.22);
     }
-    .btn--ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .btn--ghost:hover { border-color: var(--copper); color: #c5d4e0; }
     .btn--sm { padding: 0.62rem 1.2rem; font-size: 0.68rem; }
 
     /* ── SECTION LABEL ── */
@@ -213,7 +214,8 @@
       max-height: 82svh;
       min-height: 280px;
       display: block;
-      background: linear-gradient(155deg, rgba(184, 115, 51, 0.45) 0%, rgba(26, 40, 68, 0.85) 42%, #0b132b 100%);
+      object-fit: cover;
+      object-position: top center;
       -webkit-mask-image:
         radial-gradient(ellipse 80% 88% at 52% 38%, black 28%, rgba(0,0,0,0.6) 52%, transparent 72%);
       mask-image:
@@ -347,8 +349,8 @@
     }
     .card:hover {
       transform: translateY(-10px);
-      border-color: rgba(184, 115, 51, 0.38);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.42), 0 0 52px rgba(184, 115, 51, 0.07);
+      border-color: rgba(107, 147, 173, 0.45);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.42), 0 0 48px rgba(90, 125, 150, 0.08);
     }
     .card__n {
       font-size: 0.62rem;
@@ -376,7 +378,7 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--copper);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -416,17 +418,17 @@
       content: '';
       position: absolute;
       inset: 0.75rem -0.75rem -0.75rem 0.75rem;
-      border: 1px solid rgba(184, 115, 51, 0.16);
+      border: 1px solid rgba(107, 147, 173, 0.22);
       pointer-events: none;
       z-index: 2;
     }
-    .about__frame .about__photo {
+    .about__frame img {
       width: 100%;
       height: 100%;
-      min-height: 100%;
+      object-fit: cover;
+      object-position: top center;
       display: block;
-      filter: brightness(0.88) contrast(1.06);
-      background: linear-gradient(165deg, #1a2844 0%, rgba(184, 115, 51, 0.28) 48%, #0b132b 100%);
+      filter: brightness(0.92) contrast(1.04);
     }
     .about__copy {}
     .about__h2 {
@@ -529,7 +531,7 @@
       text-decoration: none;
       transition: color 0.25s;
     }
-    .footer__social a:hover { color: var(--gold); }
+    .footer__social a:hover { color: var(--copper); }
     .footer__legal { font-size: 0.68rem; color: rgba(173, 181, 189, 0.38); }
 
     /* ═══════════════════════════════════════════════
@@ -556,7 +558,7 @@
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--copper);
       margin-bottom: 1.1rem;
     }
     #tweaks-close {
@@ -644,7 +646,7 @@
         </div>
       </div>
       <div class="hero__visual" aria-hidden="true">
-        <div class="hero__photo" role="presentation" aria-hidden="true"></div>
+        <img class="hero__photo" src="images/hero.jpg" alt="" decoding="async" />
       </div>
     </section>
 
@@ -728,7 +730,7 @@
     <!-- ═══ ABOUT ═══ -->
     <section class="wrap about" id="carlos">
       <div class="about__frame">
-        <div class="about__photo" role="img" aria-label="Carlos, formador en comunicación y liderazgo"></div>
+        <img src="images/about.jpg" alt="Carlos, formador en comunicación y liderazgo" loading="lazy" decoding="async" />
       </div>
       <div class="about__copy">
         <p class="label">Quién es Carlos</p>
@@ -780,9 +782,9 @@
     <div class="tw-row">
       <label for="tw-accent">Color de acento</label>
       <select id="tw-accent">
-        <option value="copper">Cobre clásico</option>
+        <option value="slate" selected>Azul pizarra</option>
+        <option value="copper">Cobre</option>
         <option value="gold">Dorado suave</option>
-        <option value="slate">Azul pizarra</option>
       </select>
     </div>
     <div class="tw-row">
@@ -813,9 +815,9 @@
 
     /* Accent colour palettes */
     var PALETTES = {
-      copper: { copper: '#b87333', gold: '#d4af37', meshHex: 0xb87333 },
-      gold:   { copper: '#d4af37', gold: '#f0c040', meshHex: 0xd4af37 },
-      slate:  { copper: '#5b8fa8', gold: '#7fbcdb', meshHex: 0x5b8fa8 }
+      copper: { copper: '#b87333', gold: '#c9a578', meshHex: 0xb87333 },
+      gold:   { copper: '#b8995a', gold: '#c9bc98', meshHex: 0xb8995a },
+      slate:  { copper: '#6b93ad', gold: '#8fa4b5', meshHex: 0x6b93ad }
     };
 
     function applyAccent(key) {
@@ -865,7 +867,14 @@
       pushTweak('glassOpacity', CFG.glassOpacity);
     });
 
-    /* ── 3. NAV ── */
+    (function initFromCfg() {
+      applyAccent(CFG.accentColor || 'slate');
+      document.getElementById('tw-accent').value = CFG.accentColor || 'slate';
+      document.getElementById('tw-amp').value = String(CFG.waveAmplitude);
+      document.getElementById('tw-spd').value = String(CFG.waveSpeed);
+      document.getElementById('tw-glass').value = String(CFG.glassOpacity);
+      document.documentElement.style.setProperty('--glass-bg', 'rgba(11,19,43,' + CFG.glassOpacity + ')');
+    })();
     window.addEventListener('scroll', function() {
       document.getElementById('nav').classList.toggle('is-scrolled', window.scrollY > 72);
     }, { passive: true });
@@ -959,11 +968,11 @@
             PtB (blue): cool fill from right — depth separation */
       scene.add(new THREE.AmbientLight(0x2d3a5a, 0.4));
 
-      var dirLight = new THREE.DirectionalLight(0xffe8d0, 0.92);
+      var dirLight = new THREE.DirectionalLight(0xd8e6f2, 0.72);
       dirLight.position.set(5, 8, 10);
       scene.add(dirLight);
 
-      var ptA = new THREE.PointLight(0xd4af37, 0.72, 26);
+      var ptA = new THREE.PointLight(0x6b93ad, 0.38, 26);
       ptA.position.set(-4.5, 3, 5);
       scene.add(ptA);
 
@@ -986,12 +995,14 @@
       /* ── Material: metallic copper with emissive warm underfill ──
             metalness 0.58 + roughness 0.30 → mirrors but not chrome.
             Exposed as window.__waveMat for Tweaks accent-color changes. */
+      var accentKey = CFG.accentColor || 'slate';
+      var meshHex = (PALETTES[accentKey] || PALETTES.slate).meshHex;
       var mat = new THREE.MeshStandardMaterial({
-        color:             new THREE.Color(0xb87333),
-        metalness:         0.58,
-        roughness:         0.30,
-        emissive:          new THREE.Color(0x1e0800),
-        emissiveIntensity: 0.14,
+        color:             new THREE.Color(meshHex),
+        metalness:         0.52,
+        roughness:         0.34,
+        emissive:          new THREE.Color(0x0a1524),
+        emissiveIntensity: 0.12,
         side:              THREE.DoubleSide,
       });
       window.__waveMat = mat;
@@ -1001,8 +1012,8 @@
       mesh.rotation.y = -0.18;
       scene.add(mesh);
 
-      /* Wireframe twin — extremely faint gold grid for depth / tech feel */
-      var wireMat  = new THREE.MeshBasicMaterial({ color: 0xd4af37, wireframe: true, opacity: 0.022, transparent: true });
+      /* Wireframe twin — rejilla muy tenue (sin dorado llamativo) */
+      var wireMat  = new THREE.MeshBasicMaterial({ color: 0x5a6d82, wireframe: true, opacity: 0.024, transparent: true });
       var wireMesh = new THREE.Mesh(geo, wireMat);
       scene.add(wireMesh);
 
