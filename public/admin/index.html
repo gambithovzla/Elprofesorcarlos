@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0b132b" />
+  <title>Panel | El Profesor Carlos</title>
+  <link rel="icon" href="../icons/icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #0b132b;
+      --text:   #f8f9fa;
+      --muted:  #adb5bd;
+      --copper: #6b93ad;
+      --gold:   #8fa4b5;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Montserrat", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100svh;
+      line-height: 1.55;
+      padding: 2rem clamp(1rem, 4vw, 2.5rem) 5rem;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; }
+    .brand { font-family: "Playfair Display", Georgia, serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+    .brand em { font-style: normal; color: var(--copper); }
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; }
+    h1 { font-family: "Playfair Display", Georgia, serif; font-size: 1.7rem; font-weight: 600; margin-bottom: 1.5rem; }
+    h2 {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .panel {
+      background: rgba(9, 14, 32, 0.75);
+      border: 1px solid rgba(248, 249, 250, 0.1);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th {
+      text-align: left; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+      padding: 0.5rem 0.6rem; border-bottom: 1px solid rgba(248, 249, 250, 0.12);
+    }
+    td { padding: 0.65rem 0.6rem; border-bottom: 1px solid rgba(248, 249, 250, 0.06); vertical-align: middle; }
+    .table-scroll { overflow-x: auto; }
+    .empty { color: var(--muted); font-size: 0.84rem; padding: 0.6rem 0; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.55rem 1rem; font-family: inherit; font-size: 0.66rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 3px; border: none; cursor: pointer; color: var(--text);
+      background: linear-gradient(130deg, var(--copper) 0%, #4a6b82 100%);
+      touch-action: manipulation;
+    }
+    .btn[disabled] { opacity: 0.5; cursor: wait; }
+    .btn--danger { background: linear-gradient(130deg, #a05050 0%, #7c3838 100%); }
+    .btn--ghost { background: transparent; border: 1px solid rgba(248, 249, 250, 0.25); }
+    input, select {
+      padding: 0.7rem 0.9rem; font-family: inherit; font-size: 0.86rem;
+      border: 1px solid rgba(248, 249, 250, 0.15); border-radius: 3px;
+      background: rgba(248, 249, 250, 0.05); color: var(--text); outline: none;
+    }
+    input:focus, select:focus { border-color: var(--copper); }
+    label { display: block; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+    .form-grid { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: flex-end; }
+    .form-grid > div { display: flex; flex-direction: column; }
+    .badge {
+      display: inline-block; padding: 0.15rem 0.55rem; border-radius: 20px;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .badge--open   { background: rgba(107, 147, 173, 0.18); color: #b9d2e2; }
+    .badge--booked { background: rgba(107, 173, 129, 0.18); color: #9fd4b4; }
+    .badge--paid   { background: rgba(107, 173, 129, 0.18); color: #9fd4b4; }
+    .badge--rejected { background: rgba(190, 60, 60, 0.2); color: #f2b8b8; }
+    .login-card { max-width: 380px; margin: 12vh auto 0; text-align: center; }
+    .login-card input { width: 100%; margin: 1rem 0; }
+    .login-card .btn { width: 100%; padding: 0.85rem; }
+    .err { color: #f2b8b8; font-size: 0.8rem; margin-top: 0.7rem; }
+    .muted { color: var(--muted); }
+    .toast {
+      position: fixed; left: 50%; bottom: 1.5rem;
+      transform: translateX(-50%) translateY(150%);
+      background: rgba(9, 14, 32, 0.97);
+      border: 1px solid rgba(248, 249, 250, 0.16);
+      border-radius: 6px; padding: 0.85rem 1.3rem; font-size: 0.83rem;
+      transition: transform 0.3s ease; z-index: 100; max-width: min(92vw, 460px);
+    }
+    .toast.is-visible { transform: translateX(-50%) translateY(0); }
+    .toast.is-error { border-color: rgba(220, 90, 90, 0.45); color: #f2b8b8; }
+    [hidden] { display: none !important; }
+    @media (max-width: 640px) {
+      td, th { padding: 0.5rem 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- LOGIN -->
+    <div id="login-view" hidden>
+      <div class="login-card">
+        <a class="brand" href="/">El Profesor <em>Carlos</em></a>
+        <h1 style="margin-top:2rem;">Panel de control</h1>
+        <form id="login-form">
+          <input type="password" id="login-pass" placeholder="Contraseña de administrador" autocomplete="current-password" required />
+          <button type="submit" class="btn">Entrar</button>
+          <p class="err" id="login-err" hidden>Contraseña incorrecta.</p>
+        </form>
+      </div>
+    </div>
+
+    <!-- PANEL -->
+    <div id="panel-view" hidden>
+      <div class="topbar">
+        <a class="brand" href="/">El Profesor <em>Carlos</em></a>
+        <button class="btn btn--ghost" id="logout-btn">Salir</button>
+      </div>
+
+      <!-- Pagos pendientes -->
+      <section class="panel">
+        <h2>Pagos por verificar</h2>
+        <div class="table-scroll">
+          <table id="pending-table">
+            <thead><tr><th>Fecha</th><th>Comprador</th><th>Curso</th><th>Monto</th><th>Medio</th><th>Referencia</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="empty" id="pending-empty" hidden>No hay pagos pendientes de verificación.</p>
+      </section>
+
+      <!-- Horarios -->
+      <section class="panel">
+        <h2>Sesiones en vivo — horarios</h2>
+        <form class="form-grid" id="slot-form" style="margin-bottom:1.4rem;">
+          <div>
+            <label for="slot-course">Curso</label>
+            <select id="slot-course" required></select>
+          </div>
+          <div>
+            <label for="slot-date">Fecha y hora</label>
+            <input type="datetime-local" id="slot-date" required />
+          </div>
+          <div>
+            <label for="slot-duration">Duración (min)</label>
+            <input type="number" id="slot-duration" value="60" min="15" max="240" step="5" style="width:90px;" />
+          </div>
+          <div style="flex:1;min-width:200px;">
+            <label for="slot-link">Enlace de la videollamada (opcional)</label>
+            <input type="url" id="slot-link" placeholder="https://meet.google.com/..." />
+          </div>
+          <button type="submit" class="btn">Publicar horario</button>
+        </form>
+        <div class="table-scroll">
+          <table id="slots-table">
+            <thead><tr><th>Fecha</th><th>Curso</th><th>Duración</th><th>Estado</th><th>Reservado por</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="empty" id="slots-empty" hidden>Aún no hay horarios publicados.</p>
+      </section>
+
+      <!-- Cursos -->
+      <section class="panel">
+        <h2>Cursos — precio y material</h2>
+        <div class="table-scroll">
+          <table id="courses-table">
+            <thead><tr><th>Curso</th><th>Precio (S/)</th><th>PDF</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Historial -->
+      <section class="panel">
+        <h2>Últimas compras</h2>
+        <div class="table-scroll">
+          <table id="recent-table">
+            <thead><tr><th>Fecha</th><th>Comprador</th><th>Curso</th><th>Monto</th><th>Método</th><th>Estado</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="empty" id="recent-empty" hidden>Todavía no hay compras.</p>
+      </section>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      var $ = function(id) { return document.getElementById(id); };
+      var toastTimer = null;
+
+      function toast(msg, isError) {
+        var t = $('toast');
+        t.textContent = msg;
+        t.classList.toggle('is-error', Boolean(isError));
+        t.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() { t.classList.remove('is-visible'); }, 3800);
+      }
+
+      function api(path, opts) {
+        opts = opts || {};
+        if (opts.body && !(opts.body instanceof FormData)) {
+          opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers);
+          opts.body = JSON.stringify(opts.body);
+        }
+        return fetch(path, opts).then(function(r) {
+          if (r.status === 401) { showLogin(); throw new Error('Sesión expirada. Vuelve a entrar.'); }
+          return r.json().then(function(data) {
+            if (!r.ok) throw new Error(data.error || 'Error inesperado.');
+            return data;
+          });
+        });
+      }
+
+      function esc(s) {
+        var d = document.createElement('div');
+        d.textContent = s == null ? '' : String(s);
+        return d.innerHTML;
+      }
+
+      function fmtDate(iso) {
+        return new Date(iso).toLocaleString('es', {
+          day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
+        });
+      }
+      function fmtFull(iso) {
+        return new Date(iso).toLocaleString('es', {
+          weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+        });
+      }
+
+      function showLogin() {
+        $('login-view').hidden = false;
+        $('panel-view').hidden = true;
+      }
+      function showPanel() {
+        $('login-view').hidden = true;
+        $('panel-view').hidden = false;
+        refresh();
+      }
+
+      /* ── Login ── */
+      $('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        $('login-err').hidden = true;
+        api('/api/admin/login', { method: 'POST', body: { password: $('login-pass').value } })
+          .then(showPanel)
+          .catch(function() { $('login-err').hidden = false; });
+      });
+      $('logout-btn').addEventListener('click', function() {
+        api('/api/admin/logout', { method: 'POST' }).then(showLogin).catch(showLogin);
+      });
+
+      /* ── Datos ── */
+      var COURSES = [];
+
+      function refresh() {
+        api('/api/admin/overview').then(function(data) {
+          COURSES = data.courses;
+          renderPending(data.pendingPayments);
+          renderSlots(data.slots);
+          renderCourses(data.courses);
+          renderRecent(data.recentPurchases);
+          var sel = $('slot-course');
+          sel.innerHTML = COURSES.map(function(c) {
+            return '<option value="' + c.id + '">' + esc(c.title) + '</option>';
+          }).join('');
+        }).catch(function(err) { toast(err.message, true); });
+      }
+
+      function renderPending(rows) {
+        var tb = $('pending-table').querySelector('tbody');
+        tb.innerHTML = '';
+        $('pending-empty').hidden = rows.length > 0;
+        rows.forEach(function(p) {
+          var tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td class="muted">' + fmtDate(p.created_at) + '</td>' +
+            '<td>' + esc(p.buyer_name) + '<br><span class="muted">' + esc(p.buyer_email) + '</span></td>' +
+            '<td>' + esc(p.course_title) + '</td>' +
+            '<td>S/ ' + Number(p.amount_pen).toFixed(2) + '</td>' +
+            '<td>' + esc(p.manual_channel) + '</td>' +
+            '<td>' + esc(p.manual_reference) + '</td>' +
+            '<td style="white-space:nowrap;"></td>';
+          var cell = tr.lastElementChild;
+          var ok = document.createElement('button');
+          ok.className = 'btn'; ok.textContent = 'Aprobar';
+          ok.addEventListener('click', function() {
+            if (!confirm('¿Confirmas que verificaste este pago de ' + p.buyer_name + '?')) return;
+            ok.disabled = true;
+            api('/api/admin/purchases/' + p.id + '/approve', { method: 'POST' })
+              .then(function() { toast('Pago aprobado. El comprador recibió su acceso por correo.'); refresh(); })
+              .catch(function(err) { ok.disabled = false; toast(err.message, true); });
+          });
+          var no = document.createElement('button');
+          no.className = 'btn btn--danger'; no.textContent = 'Rechazar';
+          no.style.marginLeft = '0.4rem';
+          no.addEventListener('click', function() {
+            if (!confirm('¿Rechazar este pago? El comprador será notificado.')) return;
+            no.disabled = true;
+            api('/api/admin/purchases/' + p.id + '/reject', { method: 'POST' })
+              .then(function() { toast('Pago rechazado.'); refresh(); })
+              .catch(function(err) { no.disabled = false; toast(err.message, true); });
+          });
+          cell.appendChild(ok);
+          cell.appendChild(no);
+          tb.appendChild(tr);
+        });
+      }
+
+      function renderSlots(rows) {
+        var tb = $('slots-table').querySelector('tbody');
+        tb.innerHTML = '';
+        $('slots-empty').hidden = rows.length > 0;
+        rows.forEach(function(s) {
+          var tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td>' + fmtFull(s.starts_at) + '</td>' +
+            '<td>' + esc(s.course_title) + '</td>' +
+            '<td>' + s.duration_minutes + ' min</td>' +
+            '<td><span class="badge badge--' + s.status + '">' + (s.status === 'open' ? 'Libre' : 'Reservado') + '</span></td>' +
+            '<td>' + (s.buyer_name ? esc(s.buyer_name) + '<br><span class="muted">' + esc(s.buyer_email) + '</span>' : '<span class="muted">—</span>') + '</td>' +
+            '<td></td>';
+          var del = document.createElement('button');
+          del.className = 'btn btn--danger'; del.textContent = 'Cancelar';
+          del.addEventListener('click', function() {
+            var warn = s.status === 'booked'
+              ? 'Este horario YA está reservado por ' + s.buyer_name + '. Si lo cancelas debes avisarle tú. ¿Continuar?'
+              : '¿Eliminar este horario?';
+            if (!confirm(warn)) return;
+            del.disabled = true;
+            api('/api/admin/slots/' + s.id + '/cancel', { method: 'POST' })
+              .then(function() { toast('Horario cancelado.'); refresh(); })
+              .catch(function(err) { del.disabled = false; toast(err.message, true); });
+          });
+          tr.lastElementChild.appendChild(del);
+          tb.appendChild(tr);
+        });
+      }
+
+      function renderCourses(rows) {
+        var tb = $('courses-table').querySelector('tbody');
+        tb.innerHTML = '';
+        rows.forEach(function(c) {
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + esc(c.title) + '</td><td></td><td></td><td></td>';
+
+          var priceCell = tr.children[1];
+          var priceInput = document.createElement('input');
+          priceInput.type = 'number';
+          priceInput.min = '1';
+          priceInput.step = '0.01';
+          priceInput.value = Number(c.price_pen).toFixed(2);
+          priceInput.style.width = '110px';
+          var saveBtn = document.createElement('button');
+          saveBtn.className = 'btn'; saveBtn.textContent = 'Guardar';
+          saveBtn.style.marginLeft = '0.4rem';
+          saveBtn.addEventListener('click', function() {
+            saveBtn.disabled = true;
+            api('/api/admin/courses/' + c.id, { method: 'PATCH', body: { pricePen: Number(priceInput.value) } })
+              .then(function() { toast('Precio actualizado.'); saveBtn.disabled = false; })
+              .catch(function(err) { saveBtn.disabled = false; toast(err.message, true); });
+          });
+          priceCell.appendChild(priceInput);
+          priceCell.appendChild(saveBtn);
+
+          var pdfCell = tr.children[2];
+          pdfCell.innerHTML = c.has_pdf
+            ? '<span class="badge badge--paid">Cargado</span>'
+            : '<span class="badge badge--rejected">Falta</span>';
+
+          var upCell = tr.children[3];
+          var file = document.createElement('input');
+          file.type = 'file';
+          file.accept = 'application/pdf';
+          file.style.display = 'none';
+          var upBtn = document.createElement('button');
+          upBtn.className = 'btn btn--ghost';
+          upBtn.textContent = c.has_pdf ? 'Reemplazar PDF' : 'Subir PDF';
+          upBtn.addEventListener('click', function() { file.click(); });
+          file.addEventListener('change', function() {
+            if (!file.files.length) return;
+            var fd = new FormData();
+            fd.append('pdf', file.files[0]);
+            upBtn.disabled = true; upBtn.textContent = 'Subiendo…';
+            api('/api/admin/courses/' + c.id + '/pdf', { method: 'POST', body: fd })
+              .then(function() { toast('PDF actualizado.'); refresh(); })
+              .catch(function(err) { upBtn.disabled = false; upBtn.textContent = 'Reintentar'; toast(err.message, true); });
+          });
+          upCell.appendChild(upBtn);
+          upCell.appendChild(file);
+
+          tb.appendChild(tr);
+        });
+      }
+
+      function renderRecent(rows) {
+        var tb = $('recent-table').querySelector('tbody');
+        tb.innerHTML = '';
+        $('recent-empty').hidden = rows.length > 0;
+        rows.forEach(function(p) {
+          var tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td class="muted">' + fmtDate(p.created_at) + '</td>' +
+            '<td>' + esc(p.buyer_name) + '<br><span class="muted">' + esc(p.buyer_email) + '</span></td>' +
+            '<td>' + esc(p.course_title) + '</td>' +
+            '<td>S/ ' + Number(p.amount_pen).toFixed(2) + '</td>' +
+            '<td>' + (p.payment_method === 'culqi' ? 'Tarjeta' : 'Manual') + '</td>' +
+            '<td><span class="badge badge--' + p.status + '">' + (p.status === 'paid' ? 'Pagado' : 'Rechazado') + '</span></td>';
+          tb.appendChild(tr);
+        });
+      }
+
+      /* ── Crear horario ── */
+      $('slot-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var dateVal = $('slot-date').value;
+        if (!dateVal) return toast('Elige la fecha y hora.', true);
+        api('/api/admin/slots', {
+          method: 'POST',
+          body: {
+            courseId: Number($('slot-course').value),
+            startsAt: new Date(dateVal).toISOString(),
+            durationMinutes: Number($('slot-duration').value),
+            meetingLink: $('slot-link').value.trim(),
+          },
+        }).then(function() {
+          toast('Horario publicado.');
+          $('slot-date').value = '';
+          $('slot-link').value = '';
+          refresh();
+        }).catch(function(err) { toast(err.message, true); });
+      });
+
+      /* ── Arranque: ¿hay sesión activa? ── */
+      api('/api/admin/me').then(showPanel).catch(showLogin);
+    })();
+  </script>
+</body>
+</html>

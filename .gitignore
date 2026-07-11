@@ -1,1 +1,4 @@
 _extracted_zip/
+node_modules/
+.env
+storage/
