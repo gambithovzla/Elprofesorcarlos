@@ -1,5 +1,5 @@
 /* El Profesor Carlos — cache ligero para PWA (GitHub Pages, subruta OK con rutas relativas) */
-var CACHE = 'epc-shell-v2';
+var CACHE = 'epc-shell-v3';
 var PRECACHE = ['./index.html', './manifest.webmanifest', './icons/icon.svg', './images/hero.jpg', './images/about.jpg', './sw.js'];
 
 self.addEventListener('install', function (e) {
@@ -28,6 +28,10 @@ self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
   var u = e.request.url;
   if (u.includes('cdnjs.cloudflare.com') || u.includes('fonts.googleapis') || u.includes('fonts.gstatic')) {
+    return;
+  }
+  /* Nunca cachear la API, descargas protegidas, admin ni la pasarela de pago */
+  if (u.includes('/api/') || u.includes('/download/') || u.includes('/admin') || u.includes('culqi.com') || u.includes('/acceso')) {
     return;
   }
   e.respondWith(

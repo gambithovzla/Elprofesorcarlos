@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0b132b" />
+  <title>Mi curso | El Profesor Carlos</title>
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #0b132b;
+      --text:   #f8f9fa;
+      --muted:  #adb5bd;
+      --copper: #6b93ad;
+      --gold:   #8fa4b5;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Montserrat", system-ui, sans-serif;
+      background:
+        radial-gradient(ellipse 90% 60% at 70% -10%, rgba(107, 147, 173, 0.14), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100svh;
+      line-height: 1.6;
+    }
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 2rem clamp(1.25rem, 5vw, 3rem) 5rem;
+    }
+    .brand {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: clamp(2rem, 6vw, 3.5rem);
+    }
+    .brand em { font-style: normal; color: var(--copper); }
+    .label {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.9rem;
+    }
+    h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.8rem, 4.5vw, 2.7rem);
+      font-weight: 600;
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+      text-wrap: balance;
+    }
+    .sub { color: var(--muted); font-size: 0.95rem; max-width: 55ch; }
+
+    .panel {
+      margin-top: 2.25rem;
+      background: rgba(9, 14, 32, 0.72);
+      border: 1px solid rgba(248, 249, 250, 0.1);
+      border-radius: 6px;
+      padding: clamp(1.5rem, 4vw, 2.25rem);
+    }
+    .panel h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .panel .hint { color: var(--muted); font-size: 0.86rem; margin-bottom: 1.4rem; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.6rem;
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      background: linear-gradient(130deg, var(--copper) 0%, #4a6b82 100%);
+      box-shadow: 0 4px 20px rgba(90, 130, 155, 0.25);
+      transition: transform 0.25s ease;
+      touch-action: manipulation;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 0.8rem; }
+    .slot {
+      border: 1px solid rgba(248, 249, 250, 0.14);
+      border-radius: 5px;
+      background: rgba(248, 249, 250, 0.04);
+      padding: 1rem 1.1rem;
+      text-align: left;
+      color: var(--text);
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      touch-action: manipulation;
+    }
+    .slot:hover { border-color: var(--copper); background: rgba(107, 147, 173, 0.12); transform: translateY(-2px); }
+    .slot strong { display: block; font-size: 0.92rem; font-weight: 600; margin-bottom: 0.15rem; text-transform: capitalize; }
+    .slot span { font-size: 0.76rem; color: var(--muted); }
+
+    .booking {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border: 1px solid rgba(107, 173, 129, 0.3);
+      background: rgba(107, 173, 129, 0.08);
+      border-radius: 5px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.7rem;
+    }
+    .booking strong { font-size: 0.92rem; font-weight: 600; display: block; text-transform: capitalize; }
+    .booking span { font-size: 0.76rem; color: var(--muted); }
+    .booking a { color: #9fd4b4; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; }
+    .booking a:hover { text-decoration: underline; }
+
+    .note { font-size: 0.78rem; color: var(--muted); margin-top: 1.1rem; }
+    .error-box {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      border: 1px solid rgba(220, 90, 90, 0.3);
+      border-radius: 6px;
+      background: rgba(190, 60, 60, 0.08);
+    }
+    .error-box h2 { font-family: "Playfair Display", Georgia, serif; margin-bottom: 0.6rem; }
+    .error-box p { color: var(--muted); font-size: 0.9rem; }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: max(1.5rem, env(safe-area-inset-bottom));
+      transform: translateX(-50%) translateY(120%);
+      background: rgba(9, 14, 32, 0.97);
+      border: 1px solid rgba(248, 249, 250, 0.16);
+      border-radius: 6px;
+      padding: 0.9rem 1.4rem;
+      font-size: 0.84rem;
+      max-width: min(92vw, 480px);
+      transition: transform 0.3s ease;
+      z-index: 100;
+    }
+    .toast.is-visible { transform: translateX(-50%) translateY(0); }
+    .toast.is-error { border-color: rgba(220, 90, 90, 0.45); color: #f2b8b8; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="brand" href="/">El Profesor <em>Carlos</em></a>
+
+    <div id="loading">
+      <p class="sub">Cargando tu curso…</p>
+    </div>
+
+    <div id="portal" hidden>
+      <p class="label">Tu curso</p>
+      <h1 id="course-title">—</h1>
+      <p class="sub" id="welcome">—</p>
+
+      <!-- Material -->
+      <section class="panel">
+        <h2>Material del curso</h2>
+        <p class="hint" id="pdf-hint">Descarga el contenido completo del curso en PDF. El enlace es personal: no lo compartas.</p>
+        <a class="btn" id="pdf-btn" href="#" download>Descargar material (PDF)</a>
+      </section>
+
+      <!-- Mis sesiones -->
+      <section class="panel">
+        <h2>Tus sesiones en vivo</h2>
+        <p class="hint" id="sessions-hint">—</p>
+        <div id="bookings"></div>
+        <div id="scheduler">
+          <div class="slots" id="slots"></div>
+          <p class="note" id="slots-note" hidden>Por ahora no hay horarios disponibles. El profesor publica nuevos horarios cada semana — vuelve pronto o revisa tu correo.</p>
+        </div>
+        <p class="note">Al reservar recibirás un correo con la invitación para tu calendario y el enlace de la videollamada. Los horarios se muestran en hora de Perú (GMT-5) ajustados a tu zona horaria local.</p>
+      </section>
+    </div>
+
+    <div id="invalid" class="error-box" hidden>
+      <h2>Acceso no válido</h2>
+      <p>Este enlace no corresponde a una compra activa. Revisa el correo que recibiste al comprar o escríbenos si necesitas ayuda.</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      var token = new URLSearchParams(window.location.search).get('token');
+      var $ = function(id) { return document.getElementById(id); };
+      var toastTimer = null;
+
+      function toast(msg, isError) {
+        var t = $('toast');
+        t.textContent = msg;
+        t.classList.toggle('is-error', Boolean(isError));
+        t.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() { t.classList.remove('is-visible'); }, 4200);
+      }
+
+      function fmtSlot(iso) {
+        var d = new Date(iso);
+        return {
+          date: d.toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long' }),
+          time: d.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' }),
+        };
+      }
+
+      function showInvalid() {
+        $('loading').hidden = true;
+        $('portal').hidden = true;
+        $('invalid').hidden = false;
+      }
+
+      if (!token) { showInvalid(); return; }
+
+      function loadSlots(sessionsRemaining) {
+        if (sessionsRemaining <= 0) {
+          $('slots').innerHTML = '';
+          $('slots-note').hidden = true;
+          return;
+        }
+        fetch('/api/access/' + token + '/slots')
+          .then(function(r) { return r.json(); })
+          .then(function(slots) {
+            var box = $('slots');
+            box.innerHTML = '';
+            $('slots-note').hidden = slots.length > 0;
+            slots.forEach(function(s) {
+              var f = fmtSlot(s.starts_at);
+              var b = document.createElement('button');
+              b.type = 'button';
+              b.className = 'slot';
+              b.innerHTML = '<strong>' + f.date + '</strong><span>' + f.time + ' · ' + s.duration_minutes + ' min</span>';
+              b.addEventListener('click', function() {
+                if (!confirm('¿Reservar la sesión del ' + f.date + ' a las ' + f.time + '?')) return;
+                b.disabled = true;
+                fetch('/api/access/' + token + '/book', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ slotId: s.id }),
+                }).then(function(r) {
+                  return r.json().then(function(data) {
+                    if (!r.ok) throw new Error(data.error || 'No se pudo reservar.');
+                    return data;
+                  });
+                }).then(function() {
+                  toast('Sesión reservada. Te enviamos la confirmación por correo.');
+                  load();
+                }).catch(function(err) {
+                  b.disabled = false;
+                  toast(err.message, true);
+                  load();
+                });
+              });
+              box.appendChild(b);
+            });
+          })
+          .catch(function() {});
+      }
+
+      function load() {
+        fetch('/api/access/' + token)
+          .then(function(r) {
+            if (!r.ok) throw new Error('invalid');
+            return r.json();
+          })
+          .then(function(data) {
+            $('loading').hidden = true;
+            $('portal').hidden = false;
+            $('course-title').textContent = data.course.title;
+            $('welcome').textContent = 'Hola ' + data.buyerName + '. Aquí tienes tu material y la reserva de tus sesiones en vivo con el profesor.';
+
+            var pdfBtn = $('pdf-btn');
+            if (data.pdfAvailable) {
+              pdfBtn.href = '/download/' + token;
+              pdfBtn.removeAttribute('disabled');
+            } else {
+              pdfBtn.removeAttribute('href');
+              pdfBtn.setAttribute('disabled', '');
+              $('pdf-hint').textContent = 'El material se está preparando. Te avisaremos por correo en cuanto esté disponible.';
+            }
+
+            var bookingsBox = $('bookings');
+            bookingsBox.innerHTML = '';
+            data.bookings.forEach(function(bk) {
+              var f = fmtSlot(bk.starts_at);
+              var div = document.createElement('div');
+              div.className = 'booking';
+              div.innerHTML = '<div><strong>' + f.date + '</strong><span>' + f.time + ' · ' + bk.duration_minutes + ' min</span></div>' +
+                (bk.meeting_link ? '<a href="' + bk.meeting_link + '" target="_blank" rel="noopener">Unirme →</a>' : '<span>Enlace por correo antes de la sesión</span>');
+              bookingsBox.appendChild(div);
+            });
+
+            var rem = data.sessionsRemaining;
+            $('sessions-hint').textContent = rem > 0
+              ? 'Tu curso incluye ' + data.course.sessionsIncluded + ' sesiones en vivo. Te quedan ' + rem + ' por agendar — elige el horario que más te convenga:'
+              : 'Ya agendaste tus ' + data.course.sessionsIncluded + ' sesiones. ¡Nos vemos en clase!';
+
+            loadSlots(rem);
+          })
+          .catch(showInvalid);
+      }
+
+      load();
+    })();
+  </script>
+</body>
+</html>
