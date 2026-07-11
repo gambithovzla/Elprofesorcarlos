@@ -1,7 +1,15 @@
 {
   "name": "El Profesor Carlos",
   "short_name": "Prof. Carlos",
-  "description": "Comunicación y liderazgo con método.",
+  "description": "Dominio de la Palabra — curso de oratoria y comunicación efectiva con el Método FARO®.",
+  "shortcuts": [
+    {
+      "name": "Curso Dominio de la Palabra",
+      "short_name": "El curso",
+      "url": "./curso.html",
+      "icons": [{ "src": "icons/icon.svg", "sizes": "512x512", "type": "image/svg+xml" }]
+    }
+  ],
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

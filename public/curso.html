@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Dominio de la Palabra — Curso de oratoria y comunicación efectiva con el Método FARO®. Clases en vivo, enfoque práctico y mentorías. Vence el miedo escénico y habla con seguridad." />
+  <meta name="theme-color" content="#0b132b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Dominio de la Palabra | Curso de Oratoria y Comunicación Efectiva — El Profesor Carlos</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Datos estructurados: curso + preguntas frecuentes -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Course",
+        "name": "Dominio de la Palabra",
+        "description": "Curso de oratoria y comunicación efectiva basado en el Método FARO®. Clases en vivo, enfoque práctico y mentorías de acompañamiento.",
+        "provider": { "@type": "Organization", "name": "El Profesor Carlos" },
+        "instructor": { "@type": "Person", "name": "Carlos Reyes Lopenza", "jobTitle": "Profesor en Educación Comercial y locutor profesional" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "¿Necesito experiencia previa?", "acceptedAnswer": { "@type": "Answer", "text": "No. El curso está diseñado tanto para principiantes como para personas con experiencia." } },
+          { "@type": "Question", "name": "¿Las clases son teóricas o prácticas?", "acceptedAnswer": { "@type": "Answer", "text": "El programa tiene un enfoque fundamentalmente práctico." } },
+          { "@type": "Question", "name": "¿Puedo participar si siento miedo al hablar en público?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Precisamente uno de los objetivos del curso es ayudarte a desarrollar seguridad y confianza." } },
+          { "@type": "Question", "name": "¿Recibiré apoyo después de las clases?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Los participantes tendrán acompañamiento y mentorías a través de WhatsApp por un tiempo determinado." } },
+          { "@type": "Question", "name": "¿Qué sucede si surge alguna duda adicional?", "acceptedAnswer": { "@type": "Answer", "text": "Podrán organizarse sesiones complementarias en vivo cuando sea necesario." } },
+          { "@type": "Question", "name": "¿Qué beneficios obtendré?", "acceptedAnswer": { "@type": "Answer", "text": "Mayor seguridad, mejor voz, mejor dicción, mejor presencia y una comunicación más efectiva en el ámbito personal y profesional." } }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* ── DESIGN TOKENS (mismos de la portada) ── */
+    :root {
+      --bg:       #0b132b;
+      --text:     #f8f9fa;
+      --muted:    #adb5bd;
+      --copper:   #6b93ad;
+      --gold:     #8fa4b5;
+      --glass-bg: rgba(11, 19, 43, 0.55);
+      --glass-bd: rgba(248, 249, 250, 0.10);
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 5.25rem;
+    }
+
+    body {
+      font-family: "Montserrat", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Fondo: resplandores fijos, sin WebGL — página ligera y rápida */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 45% at 18% 8%,  rgba(107, 147, 173, 0.16), transparent 68%),
+        radial-gradient(ellipse 55% 40% at 85% 30%, rgba(58, 96, 128, 0.14),  transparent 70%),
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(28, 42, 74, 0.55),  transparent 72%);
+    }
+
+    .content { position: relative; z-index: 1; }
+
+    .wrap {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-left:  clamp(1.5rem, 5vw, 4rem);
+      padding-right: clamp(1.5rem, 5vw, 4rem);
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem clamp(1.5rem, 5vw, 4rem);
+      transition: background 0.45s ease, border-color 0.45s ease, backdrop-filter 0.45s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.is-scrolled {
+      background: rgba(9, 14, 32, 0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: rgba(248, 249, 250, 0.07);
+    }
+    .nav__logo {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav__logo em { font-style: normal; color: var(--copper); }
+    .nav__group { display: flex; align-items: center; gap: 2.25rem; }
+    .nav__link {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav__link:hover { color: var(--text); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.75rem;
+      font-family: inherit;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.4s var(--ease), box-shadow 0.4s ease, color 0.25s, border-color 0.25s;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(107, 147, 173, 0.25);
+    }
+    .btn--primary {
+      background: linear-gradient(130deg, var(--copper) 0%, #4a6b82 100%);
+      color: var(--text);
+      box-shadow: 0 4px 22px rgba(90, 130, 155, 0.28);
+    }
+    .btn--primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(100, 140, 165, 0.32);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(248, 249, 250, 0.22);
+    }
+    .btn--ghost:hover { border-color: var(--copper); color: #c5d4e0; }
+    .btn--sm { padding: 0.62rem 1.2rem; font-size: 0.68rem; }
+    .btn--lg { padding: 1.05rem 2.4rem; font-size: 0.78rem; }
+
+    /* ── SECTION LABEL ── */
+    .label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.6rem;
+    }
+    .label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.65;
+      flex-shrink: 0;
+    }
+
+    section { padding-top: clamp(3.5rem, 8vw, 6rem); }
+
+    .h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.75rem, 3.4vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      text-wrap: balance;
+    }
+    .lead {
+      color: var(--muted);
+      font-size: clamp(0.92rem, 1.5vw, 1.02rem);
+      line-height: 1.85;
+      max-width: 62ch;
+    }
+
+    /* Animación de aparición (IntersectionObserver) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    }
+    .reveal.is-in { opacity: 1; transform: none; }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      min-height: 92svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 7rem;
+      padding-bottom: 3rem;
+      text-align: left;
+    }
+    .hero__eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 1.4rem;
+    }
+    .hero__h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.8rem, 7vw, 5.6rem);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.4rem;
+      text-wrap: balance;
+      max-width: 14ch;
+    }
+    .hero__h1 em { font-style: italic; font-weight: 400; }
+    .hero__quote {
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--gold);
+      margin-bottom: 1.9rem;
+    }
+    .hero__sub {
+      font-size: clamp(0.92rem, 1.6vw, 1.05rem);
+      color: var(--muted);
+      max-width: 56ch;
+      margin-bottom: 2.6rem;
+      line-height: 1.8;
+    }
+    .hero__ctas { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .hero__price {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+    .hero__price small {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero__facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2.6rem;
+    }
+    .fact {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid rgba(248, 249, 250, 0.14);
+      border-radius: 999px;
+      padding: 0.42rem 0.95rem;
+      background: rgba(248, 249, 250, 0.04);
+      white-space: nowrap;
+    }
+
+    /* ═══ GLASS CARD BASE ═══ */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-bd);
+      border-radius: 4px;
+    }
+
+    /* ═══ BIENVENIDA ═══ */
+    .welcome__grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .welcome__aside {
+      padding: 2rem 1.9rem;
+      border-left: 2px solid var(--copper);
+    }
+    .welcome__aside h3 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.7rem;
+    }
+    .welcome__aside p { font-size: 0.87rem; color: var(--muted); line-height: 1.75; }
+    .welcome__aside strong { color: var(--text); }
+    .lead + .lead { margin-top: 1.1rem; }
+
+    /* ═══ QUÉ APRENDERÁS ═══ */
+    .learn__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+      margin-top: 2.4rem;
+    }
+    .learn__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 1.05rem 1.2rem;
+      font-size: 0.88rem;
+      color: #dbe2e8;
+      line-height: 1.55;
+    }
+    .learn__item::before {
+      content: '✓';
+      flex-shrink: 0;
+      width: 1.45rem;
+      height: 1.45rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #a8cfe3;
+      background: rgba(107, 147, 173, 0.18);
+      border: 1px solid rgba(107, 147, 173, 0.4);
+      margin-top: 0.05rem;
+    }
+
+    /* ═══ MÓDULOS ═══ */
+    .modules { display: grid; gap: 1.4rem; margin-top: 2.4rem; }
+    .module { padding: 2.2rem 2.1rem; }
+    .module__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+    .module__n {
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+    }
+    .module__title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+      font-weight: 600;
+      line-height: 1.25;
+      width: 100%;
+    }
+    .module__why {
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--gold);
+      margin-bottom: 1.4rem;
+      line-height: 1.6;
+    }
+    .module__topics {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 0.5rem 1.5rem;
+    }
+    .module__topics li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.7rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .module__topics li::before { content: '—'; color: var(--copper); font-weight: 700; flex-shrink: 0; }
+
+    /* ═══ MODALIDAD ═══ */
+    .modality__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 1.1rem;
+      margin-top: 2.4rem;
+    }
+    .modality__item { padding: 1.7rem 1.6rem; }
+    .modality__item svg {
+      width: 30px; height: 30px;
+      stroke: var(--copper);
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-bottom: 0.95rem;
+    }
+    .modality__item h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .modality__item p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* ═══ HORARIOS ═══ */
+    .sched__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+      gap: 1.1rem;
+      margin-top: 2.4rem;
+    }
+    .sched { padding: 1.8rem 1.7rem; position: relative; overflow: hidden; }
+    .sched::after {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--copper), transparent);
+    }
+    .sched__g {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 0.8rem;
+    }
+    .sched__days {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.12rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      line-height: 1.3;
+    }
+    .sched__time { font-size: 0.9rem; color: #dbe2e8; margin-bottom: 0.25rem; }
+    .sched__tz { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+    .sched__note {
+      margin-top: 1.4rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ═══ ACOMPAÑAMIENTO ═══ */
+    .support__list { display: grid; gap: 0.85rem; margin-top: 2.4rem; max-width: 640px; }
+    .support__closing {
+      margin-top: 1.8rem;
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-size: 1.02rem;
+      color: var(--gold);
+    }
+
+    /* ═══ PROFESOR ═══ */
+    .prof {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+    }
+    .prof__frame {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border-radius: 3px;
+      max-width: 400px;
+    }
+    .prof__frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 55%, rgba(11, 19, 43, 0.9) 100%);
+      pointer-events: none;
+    }
+    .prof__frame::before {
+      content: '';
+      position: absolute;
+      inset: 0.75rem -0.75rem -0.75rem 0.75rem;
+      border: 1px solid rgba(107, 147, 173, 0.22);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .prof__frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: brightness(0.92) contrast(1.04);
+    }
+    .prof__p { font-size: 0.93rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.1rem; }
+    .prof__p strong { color: var(--text); font-weight: 600; }
+    .prof__motto {
+      margin-top: 1.7rem;
+      padding: 1.4rem 1.6rem;
+      border-left: 2px solid var(--copper);
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-size: 1.12rem;
+      line-height: 1.55;
+      color: var(--text);
+    }
+    .prof__motto small {
+      display: block;
+      margin-top: 0.55rem;
+      font-family: "Montserrat", sans-serif;
+      font-style: normal;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ═══ DIRIGIDO A ═══ */
+    .aud__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.85rem;
+      margin-top: 2.4rem;
+    }
+    .aud {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 1.15rem 1.3rem;
+      font-size: 0.88rem;
+      color: #dbe2e8;
+      line-height: 1.5;
+    }
+    .aud::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--copper);
+      box-shadow: 0 0 10px rgba(107, 147, 173, 0.8);
+      flex-shrink: 0;
+    }
+
+    /* ═══ INVERSIÓN ═══ */
+    .invest {
+      margin-top: 2.4rem;
+      padding: clamp(2rem, 5vw, 3.2rem);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2.5rem;
+      align-items: center;
+      border-color: rgba(107, 147, 173, 0.35);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35), 0 0 60px rgba(90, 125, 150, 0.07);
+    }
+    .invest__title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+      line-height: 1.2;
+    }
+    .invest__body { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.6rem; }
+    .invest__pay {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .invest__cta { text-align: center; }
+    .invest__price {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(2.2rem, 4vw, 2.9rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .invest__price small {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .invest__cta .btn { width: 100%; margin-top: 1.5rem; }
+    .invest__hint { margin-top: 0.85rem; font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
+
+    /* ═══ FAQ ═══ */
+    .faq__list { margin-top: 2.4rem; display: grid; gap: 0.75rem; max-width: 780px; }
+    .faq {
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .faq summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      padding: 1.25rem 1.45rem;
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.45;
+      transition: color 0.2s;
+      -webkit-tap-highlight-color: rgba(107, 147, 173, 0.12);
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: '+';
+      flex-shrink: 0;
+      width: 1.7rem; height: 1.7rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(248, 249, 250, 0.2);
+      color: var(--copper);
+      font-size: 1.05rem;
+      font-weight: 400;
+      transition: transform 0.3s var(--ease), background 0.25s;
+    }
+    .faq[open] summary { color: #c5d4e0; }
+    .faq[open] summary::after {
+      content: '−';
+      transform: rotate(180deg);
+      background: rgba(107, 147, 173, 0.16);
+    }
+    .faq__a {
+      padding: 0 1.45rem 1.35rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 64ch;
+    }
+
+    /* ═══ FILOSOFÍA / CIERRE ═══ */
+    .philo {
+      padding-bottom: clamp(4rem, 9vw, 7rem);
+      text-align: center;
+    }
+    .philo__quote {
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3.2vw, 2.2rem);
+      font-weight: 500;
+      line-height: 1.45;
+      max-width: 26ch;
+      margin: 0 auto 1.4rem;
+      text-wrap: balance;
+    }
+    .philo__author {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 2.8rem;
+    }
+    .philo .label { justify-content: center; }
+    .philo .label::before { display: none; }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      border-top: 1px solid rgba(248, 249, 250, 0.08);
+      padding: 2.4rem 0 2.6rem;
+    }
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer__legal { font-size: 0.68rem; color: rgba(173, 181, 189, 0.4); }
+    .footer__back {
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .footer__back:hover { color: var(--copper); }
+
+    /* ── PWA dock (móvil) ── */
+    .pwa-dock {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 9500;
+      padding: 0.4rem max(0.5rem, env(safe-area-inset-left)) calc(0.45rem + env(safe-area-inset-bottom, 0px)) max(0.5rem, env(safe-area-inset-right));
+      background: rgba(7, 12, 28, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(248, 249, 250, 0.09);
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+    }
+    .pwa-dock__btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      min-height: 48px;
+      padding: 0.35rem 0.25rem;
+      border: none;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.56rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+    }
+    .pwa-dock__btn svg {
+      width: 24px; height: 24px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .pwa-dock__btn.is-active {
+      color: #e8eef4;
+      background: rgba(107, 147, 173, 0.22);
+    }
+    .pwa-dock__btn--buy { color: #a8cfe3; }
+    .pwa-dock__btn:active { transform: scale(0.96); }
+
+    /* ═══ CHECKOUT (mismo modal de la portada) ═══ */
+    .checkout {
+      position: fixed;
+      inset: 0;
+      z-index: 10500;
+      display: grid;
+      place-items: center;
+      padding: max(1rem, env(safe-area-inset-top)) 1rem max(1rem, env(safe-area-inset-bottom));
+      background: rgba(4, 8, 20, 0.9);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+      overflow-y: auto;
+    }
+    .checkout.is-open { opacity: 1; visibility: visible; }
+    .checkout__panel {
+      width: min(100%, 460px);
+      max-height: calc(100dvh - 2rem);
+      overflow-y: auto;
+      background: rgba(9, 14, 32, 0.97);
+      border: 1px solid rgba(248, 249, 250, 0.12);
+      border-radius: 6px;
+      padding: 2.25rem 2rem 2rem;
+      position: relative;
+    }
+    .checkout__close {
+      position: absolute;
+      top: 0.9rem; right: 0.9rem;
+      width: 40px; height: 40px;
+      border: none; border-radius: 50%;
+      background: rgba(248, 249, 250, 0.08);
+      color: var(--text);
+      font-size: 1.3rem; line-height: 1;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .checkout__close:hover { background: rgba(248, 249, 250, 0.16); }
+    .checkout__eyebrow {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 0.6rem;
+    }
+    .checkout__title {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 0.35rem;
+    }
+    .checkout__price {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+    .checkout__price strong { color: var(--text); font-size: 1.05rem; }
+    .checkout label {
+      display: block;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 1rem 0 0.4rem;
+    }
+    .checkout input[type=text],
+    .checkout input[type=email],
+    .checkout select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      border: 1px solid rgba(248, 249, 250, 0.15);
+      border-radius: 3px;
+      background: rgba(248, 249, 250, 0.05);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.25s;
+    }
+    .checkout input:focus, .checkout select:focus { border-color: var(--copper); }
+    .paymethods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+    .paymethod {
+      border: 1px solid rgba(248, 249, 250, 0.15);
+      border-radius: 4px;
+      padding: 0.85rem 0.9rem;
+      background: rgba(248, 249, 250, 0.04);
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+      font-family: inherit;
+      transition: border-color 0.2s, background 0.2s;
+      touch-action: manipulation;
+    }
+    .paymethod strong {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .paymethod span { font-size: 0.66rem; color: var(--muted); line-height: 1.4; display: block; }
+    .paymethod.is-selected {
+      border-color: var(--copper);
+      background: rgba(107, 147, 173, 0.14);
+    }
+    .checkout__error {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem 0.95rem;
+      border-radius: 3px;
+      background: rgba(190, 60, 60, 0.14);
+      border: 1px solid rgba(220, 90, 90, 0.35);
+      color: #f2b8b8;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+    .checkout__error.is-visible { display: block; }
+    .checkout__submit { width: 100%; justify-content: center; margin-top: 1.5rem; }
+    .checkout__submit[disabled] { opacity: 0.55; cursor: wait; transform: none !important; }
+    .manual-info {
+      margin-top: 1.1rem;
+      border: 1px solid rgba(248, 249, 250, 0.12);
+      border-radius: 4px;
+      padding: 1rem 1.1rem;
+      background: rgba(248, 249, 250, 0.04);
+    }
+    .manual-info h4 {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .manual-info p { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.45rem; line-height: 1.55; }
+    .manual-info p strong { color: var(--text); }
+    .checkout__success { text-align: center; padding: 1.5rem 0 0.5rem; }
+    .checkout__success h3 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 1.4rem;
+      margin: 0.9rem 0 0.7rem;
+    }
+    .checkout__success p { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+    .checkout__success .ok-badge {
+      width: 56px; height: 56px;
+      margin: 0 auto;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: rgba(107, 173, 129, 0.16);
+      border: 1px solid rgba(107, 173, 129, 0.4);
+      color: #9fd4b4;
+      font-size: 1.6rem;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 940px) {
+      html { scroll-padding-bottom: 5.75rem; }
+      .nav {
+        padding-top: calc(0.85rem + env(safe-area-inset-top, 0px));
+        padding-left: max(1.1rem, env(safe-area-inset-left));
+        padding-right: max(1.1rem, env(safe-area-inset-right));
+      }
+      .nav__group .nav__link { display: none; }
+      .hero { min-height: auto; padding-top: 6.5rem; }
+      .welcome__grid { grid-template-columns: 1fr; gap: 2rem; }
+      .prof { grid-template-columns: 1fr; }
+      .prof__frame { max-width: min(100%, 380px); margin-inline: auto; }
+      .invest { grid-template-columns: 1fr; gap: 2rem; }
+      .pwa-dock {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: 0.2rem;
+      }
+      body { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px)); }
+    }
+    @media (max-width: 640px) {
+      .learn__grid { grid-template-columns: 1fr; }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .btn:active { transform: scale(0.98); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn { transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Navegación principal">
+    <a class="nav__logo" href="index.html">El Profesor <em>Carlos</em></a>
+    <div class="nav__group">
+      <a class="nav__link" href="#contenido">Contenido</a>
+      <a class="nav__link" href="#horarios">Horarios</a>
+      <a class="nav__link" href="#faq">Preguntas</a>
+      <button type="button" class="btn btn--primary btn--sm js-buy" data-course="dominio-de-la-palabra">Inscribirme</button>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <!-- ═══ HERO ═══ -->
+    <header class="wrap hero" id="inicio">
+      <p class="hero__eyebrow">Curso de oratoria y comunicación efectiva · Método FARO®</p>
+      <h1 class="hero__h1">Dominio de la <em>Palabra</em></h1>
+      <p class="hero__quote">"Formamos oradores y profesionales que transforman vidas."</p>
+      <p class="hero__sub">Un programa práctico para expresarte con confianza, conectar con las personas y transmitir tus ideas con autoridad. Clases en vivo con el profesor Carlos Reyes Lopenza, ejercicios reales y acompañamiento personalizado.</p>
+      <div class="hero__ctas">
+        <button type="button" class="btn btn--primary btn--lg js-buy" data-course="dominio-de-la-palabra">Inscribirme ahora</button>
+        <a class="btn btn--ghost" href="#curso">Conocer el curso</a>
+        <span class="hero__price" data-price-for="dominio-de-la-palabra" data-price-label="Inversión del programa">—</span>
+      </div>
+      <div class="hero__facts" aria-label="Características del curso">
+        <span class="fact">Clases en vivo</span>
+        <span class="fact">100 % práctico</span>
+        <span class="fact">3 módulos</span>
+        <span class="fact">Mentorías por WhatsApp</span>
+        <span class="fact">Sin experiencia previa</span>
+      </div>
+    </header>
+
+    <!-- ═══ BIENVENIDA ═══ -->
+    <section class="wrap" id="curso">
+      <div class="welcome__grid">
+        <div class="reveal">
+          <p class="label">Bienvenido</p>
+          <h2 class="h2">La habilidad más valiosa de tu carrera: comunicar.</h2>
+          <p class="lead">La capacidad de comunicar con claridad, seguridad e impacto se ha convertido en una de las habilidades más valiosas para estudiantes, profesionales, docentes, emprendedores y líderes.</p>
+          <p class="lead"><strong style="color: var(--text);">Dominio de la Palabra</strong> es un programa práctico diseñado para desarrollar las competencias necesarias para expresarse con confianza, conectar con las personas y transmitir ideas con autoridad.</p>
+        </div>
+        <aside class="glass welcome__aside reveal">
+          <h3>Método FARO®</h3>
+          <p>Este curso se fundamenta en el <strong>Método FARO®</strong>, una metodología orientada a formar comunicadores capaces de influir positivamente y convertirse en referentes para otros.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ═══ QUÉ APRENDERÁS ═══ -->
+    <section class="wrap" id="aprenderas">
+      <div class="reveal">
+        <p class="label">Qué aprenderás</p>
+        <h2 class="h2">Diez capacidades que te llevarás del curso.</h2>
+      </div>
+      <div class="learn__grid">
+        <div class="glass learn__item reveal">Controlar los nervios y vencer el miedo escénico.</div>
+        <div class="glass learn__item reveal">Utilizar correctamente la voz y la respiración.</div>
+        <div class="glass learn__item reveal">Mejorar la dicción y la pronunciación.</div>
+        <div class="glass learn__item reveal">Hablar con mayor seguridad y autoridad.</div>
+        <div class="glass learn__item reveal">Proyectar una imagen profesional.</div>
+        <div class="glass learn__item reveal">Mantener la atención del público.</div>
+        <div class="glass learn__item reveal">Utilizar adecuadamente el lenguaje corporal.</div>
+        <div class="glass learn__item reveal">Expresarte con mayor claridad y fluidez.</div>
+        <div class="glass learn__item reveal">Comunicar ideas de forma efectiva.</div>
+        <div class="glass learn__item reveal">Desarrollar habilidades para enseñar, liderar y persuadir.</div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTENIDO / MÓDULOS ═══ -->
+    <section class="wrap" id="contenido">
+      <div class="reveal">
+        <p class="label">Contenido del curso</p>
+        <h2 class="h2">Tres módulos. Un camino: de la voz al orador.</h2>
+      </div>
+      <div class="modules">
+        <article class="glass module reveal">
+          <div class="module__head">
+            <p class="module__n">Módulo I</p>
+            <h3 class="module__title">La Voz, la Respiración y la Presencia</h3>
+          </div>
+          <p class="module__why">Porque una buena comunicación comienza con el dominio del instrumento más importante del orador: su propia voz.</p>
+          <ul class="module__topics">
+            <li>Funcionamiento de la voz</li>
+            <li>Respiración diafragmática</li>
+            <li>Postura corporal</li>
+            <li>Manejo de las manos</li>
+            <li>Contacto visual</li>
+            <li>Proyección de seguridad</li>
+          </ul>
+        </article>
+        <article class="glass module reveal">
+          <div class="module__head">
+            <p class="module__n">Módulo II</p>
+            <h3 class="module__title">Dicción, Modulación y Expresión</h3>
+          </div>
+          <p class="module__why">Porque las palabras adquieren poder cuando son pronunciadas con claridad y naturalidad.</p>
+          <ul class="module__topics">
+            <li>Vocalización y articulación</li>
+            <li>Gimnasia facial</li>
+            <li>Modulación e interpretación</li>
+            <li>Musicalidad de la voz</li>
+            <li>Eliminación de vicios del lenguaje</li>
+            <li>Trabalenguas y agilidad mental</li>
+          </ul>
+        </article>
+        <article class="glass module reveal">
+          <div class="module__head">
+            <p class="module__n">Módulo III</p>
+            <h3 class="module__title">El Orador en Acción</h3>
+          </div>
+          <p class="module__why">Porque comunicar no consiste solamente en hablar, sino en conectar con las personas.</p>
+          <ul class="module__topics">
+            <li>Cómo vencer el miedo escénico</li>
+            <li>Dominio del espacio</li>
+            <li>Uso del micrófono</li>
+            <li>Presencia y energía</li>
+            <li>Lenguaje corporal</li>
+            <li>Lectura interpretativa</li>
+            <li>Ejercicios prácticos</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══ MODALIDAD ═══ -->
+    <section class="wrap" id="modalidad">
+      <div class="reveal">
+        <p class="label">Modalidad</p>
+        <h2 class="h2">Aprenderás haciendo, no solo escuchando.</h2>
+      </div>
+      <div class="modality__grid">
+        <div class="glass modality__item reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="13" rx="2"/><path d="M8 21h8M12 17.5V21"/><circle cx="12" cy="11" r="2.4"/></svg>
+          <h3>Clases en vivo</h3>
+          <p>Sesiones en directo con el profesor: aprendes, preguntas y corriges en tiempo real.</p>
+        </div>
+        <div class="glass modality__item reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10M12 13a4 4 0 0 0 4-4M12 13a4 4 0 0 1-4-4"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          <h3>Enfoque práctico</h3>
+          <p>Un programa eminentemente práctico: cada tema se ejercita, no solo se explica.</p>
+        </div>
+        <div class="glass modality__item reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M3 20v-1a5 5 0 0 1 5-5h.5M13 20v-.6a4 4 0 0 1 4-4h.5a4 4 0 0 1 3.5 2"/></svg>
+          <h3>Participación activa</h3>
+          <p>Los asistentes participan en cada sesión: hablar es la única forma de aprender a hablar.</p>
+        </div>
+        <div class="glass modality__item reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5l.6 2.4 2.2 1.3 2.3-.8 2.5 4.3-1.8 1.6v2.4l1.8 1.6-2.5 4.3-2.3-.8-2.2 1.3-.6 2.4h-5l-.6-2.4-2.2-1.3-2.3.8L2 16.3l1.8-1.6v-2.4L2 10.7l2.5-4.3 2.3.8L9 4.9z" transform="scale(0.92) translate(1,1)"/><circle cx="12" cy="12" r="2.6"/></svg>
+          <h3>Ejercicios y dinámicas</h3>
+          <p>Dinámicas durante las sesiones que consolidan cada técnica hasta hacerla tuya.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HORARIOS ═══ -->
+    <section class="wrap" id="horarios">
+      <div class="reveal">
+        <p class="label">Horarios disponibles</p>
+        <h2 class="h2">Cuatro grupos. Elige el que se adapte a tu rutina.</h2>
+      </div>
+      <div class="sched__grid">
+        <div class="glass sched reveal">
+          <p class="sched__g">Grupo 1</p>
+          <p class="sched__days">Martes · Jueves · Martes</p>
+          <p class="sched__time">9:00 a.m. — 11:30 a.m.</p>
+          <p class="sched__tz">Hora de Venezuela</p>
+        </div>
+        <div class="glass sched reveal">
+          <p class="sched__g">Grupo 2</p>
+          <p class="sched__days">Miércoles · Viernes · Miércoles</p>
+          <p class="sched__time">9:00 a.m. — 11:30 a.m.</p>
+          <p class="sched__tz">Hora de Venezuela</p>
+        </div>
+        <div class="glass sched reveal">
+          <p class="sched__g">Grupo 3</p>
+          <p class="sched__days">Martes · Jueves · Martes</p>
+          <p class="sched__time">8:00 p.m. — 9:30 p.m.</p>
+          <p class="sched__tz">Hora de Venezuela</p>
+        </div>
+        <div class="glass sched reveal">
+          <p class="sched__g">Grupo 4</p>
+          <p class="sched__days">Miércoles · Viernes · Miércoles</p>
+          <p class="sched__time">8:00 p.m. — 9:30 p.m.</p>
+          <p class="sched__tz">Hora de Venezuela</p>
+        </div>
+      </div>
+      <p class="sched__note reveal">Al confirmar tu inscripción coordinamos contigo el grupo de tu preferencia.</p>
+    </section>
+
+    <!-- ═══ ACOMPAÑAMIENTO ═══ -->
+    <section class="wrap" id="acompanamiento">
+      <div class="reveal">
+        <p class="label">Acompañamiento adicional</p>
+        <h2 class="h2">El aprendizaje continúa después de las clases.</h2>
+      </div>
+      <div class="support__list">
+        <div class="glass learn__item reveal">Mentorías y acompañamiento por WhatsApp durante un período determinado.</div>
+        <div class="glass learn__item reveal">Resolución de dudas en una comunidad de egresados.</div>
+        <div class="glass learn__item reveal">Material complementario.</div>
+        <div class="glass learn__item reveal">Posibilidad de realizar sesiones adicionales en vivo cuando sea necesario.</div>
+      </div>
+      <p class="support__closing reveal">Porque el aprendizaje continúa incluso después de finalizar las clases.</p>
+    </section>
+
+    <!-- ═══ PROFESOR ═══ -->
+    <section class="wrap" id="profesor">
+      <div class="prof">
+        <div class="prof__frame reveal">
+          <img src="images/about.jpg" alt="Carlos Reyes Lopenza — El Profesor Carlos" loading="lazy" decoding="async" />
+        </div>
+        <div class="reveal">
+          <p class="label">Tu profesor</p>
+          <h2 class="h2">Carlos Reyes Lopenza</h2>
+          <p class="prof__p"><strong>Profesor en Educación Comercial y locutor profesional.</strong> Durante años ha combinado la educación, la comunicación y las herramientas profesionales para formar personas capaces de expresarse con seguridad y transmitir conocimientos con claridad.</p>
+          <p class="prof__p">Su misión es ayudar a estudiantes, profesionales y futuros formadores a desarrollar las habilidades comunicativas necesarias para enseñar, liderar e influir positivamente en los demás.</p>
+          <blockquote class="glass prof__motto">
+            "No basta con saber. También hay que saber comunicar."
+            <small>La filosofía de El Profesor Carlos</small>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DIRIGIDO A ═══ -->
+    <section class="wrap" id="dirigido">
+      <div class="reveal">
+        <p class="label">A quién está dirigido</p>
+        <h2 class="h2">Si tu voz es parte de tu trabajo, este curso es para ti.</h2>
+      </div>
+      <div class="aud__grid">
+        <div class="glass aud reveal">Profesionales de cualquier área</div>
+        <div class="glass aud reveal">Docentes y futuros formadores</div>
+        <div class="glass aud reveal">Estudiantes universitarios</div>
+        <div class="glass aud reveal">Emprendedores</div>
+        <div class="glass aud reveal">Líderes comunitarios</div>
+        <div class="glass aud reveal">Personas que desean perder el miedo a hablar en público</div>
+        <div class="glass aud reveal">Quienes desean mejorar su voz, dicción y presencia escénica</div>
+      </div>
+    </section>
+
+    <!-- ═══ INVERSIÓN ═══ -->
+    <section class="wrap" id="inversion">
+      <div class="reveal">
+        <p class="label">Inversión</p>
+        <h2 class="h2">Tu voz es tu mejor inversión.</h2>
+      </div>
+      <div class="glass invest reveal">
+        <div>
+          <h3 class="invest__title">Programa completo · Dominio de la Palabra</h3>
+          <p class="invest__body">Incluye los tres módulos en clases en vivo, ejercicios y dinámicas en cada sesión, material complementario, mentorías por WhatsApp y acceso a la comunidad de egresados.</p>
+          <div class="invest__pay">
+            <span class="fact">Tarjeta</span>
+            <span class="fact">Yape</span>
+            <span class="fact">Zelle</span>
+            <span class="fact">Pago Móvil</span>
+            <span class="fact">Binance</span>
+          </div>
+        </div>
+        <div class="invest__cta">
+          <p class="invest__price" data-price-for="dominio-de-la-palabra" data-price-label="Monto del curso">—</p>
+          <button type="button" class="btn btn--primary btn--lg js-buy" data-course="dominio-de-la-palabra">Inscribirme ahora</button>
+          <p class="invest__hint">Pago seguro. Si pagas por Zelle, Pago Móvil o Binance, recibes tu acceso tras la verificación del pago.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FAQ ═══ -->
+    <section class="wrap" id="faq">
+      <div class="reveal">
+        <p class="label">Preguntas frecuentes</p>
+        <h2 class="h2">Todo claro antes de empezar.</h2>
+      </div>
+      <div class="faq__list">
+        <details class="glass faq reveal">
+          <summary>¿Necesito experiencia previa?</summary>
+          <p class="faq__a">No. El curso está diseñado tanto para principiantes como para personas con experiencia.</p>
+        </details>
+        <details class="glass faq reveal">
+          <summary>¿Las clases son teóricas o prácticas?</summary>
+          <p class="faq__a">El programa tiene un enfoque fundamentalmente práctico: en cada sesión ejercitas lo aprendido con dinámicas y participación activa.</p>
+        </details>
+        <details class="glass faq reveal">
+          <summary>¿Puedo participar si siento miedo al hablar en público?</summary>
+          <p class="faq__a">Sí. Precisamente uno de los objetivos del curso es ayudarte a desarrollar seguridad y confianza.</p>
+        </details>
+        <details class="glass faq reveal">
+          <summary>¿Recibiré apoyo después de las clases?</summary>
+          <p class="faq__a">Sí. Los participantes tendrán acompañamiento y mentorías a través de WhatsApp por un tiempo determinado.</p>
+        </details>
+        <details class="glass faq reveal">
+          <summary>¿Qué sucede si surge alguna duda adicional?</summary>
+          <p class="faq__a">Podrán organizarse sesiones complementarias en vivo cuando sea necesario.</p>
+        </details>
+        <details class="glass faq reveal">
+          <summary>¿Qué beneficios obtendré?</summary>
+          <p class="faq__a">Mayor seguridad, mejor voz, mejor dicción, mejor presencia y una comunicación más efectiva en el ámbito personal y profesional.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ═══ FILOSOFÍA / CIERRE ═══ -->
+    <section class="wrap philo" id="contacto">
+      <div class="reveal">
+        <p class="label">Nuestra filosofía</p>
+        <blockquote class="philo__quote">"No formamos únicamente personas que hablen bien. Formamos oradores y profesionales capaces de transformar vidas mediante el poder de la palabra."</blockquote>
+        <p class="philo__author">El Profesor Carlos</p>
+        <button type="button" class="btn btn--primary btn--lg js-buy" data-course="dominio-de-la-palabra">Quiero dominar la palabra</button>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+      <div class="wrap footer__inner">
+        <p class="footer__legal">© 2026 El Profesor Carlos. Formamos oradores y profesionales que transforman vidas.</p>
+        <a class="footer__back" href="index.html">← Volver al inicio</a>
+      </div>
+    </footer>
+
+  </div><!-- /content -->
+
+  <!-- ═══ CHECKOUT MODAL ═══ -->
+  <div id="checkout" class="checkout" hidden role="dialog" aria-modal="true" aria-label="Comprar curso">
+    <div class="checkout__panel">
+      <button type="button" class="checkout__close" id="checkout-close" aria-label="Cerrar">×</button>
+
+      <!-- Paso 1: datos + método -->
+      <form id="checkout-form">
+        <p class="checkout__eyebrow">Inscripción al curso</p>
+        <h3 class="checkout__title" id="co-title">—</h3>
+        <p class="checkout__price">Incluye material descargable y <span id="co-sessions">3</span> sesiones en vivo · <strong id="co-price">—</strong></p>
+
+        <label for="co-name">Nombre completo</label>
+        <input type="text" id="co-name" name="name" required autocomplete="name" placeholder="Tu nombre y apellido" />
+
+        <label for="co-email">Correo electrónico</label>
+        <input type="email" id="co-email" name="email" required autocomplete="email" placeholder="tucorreo@ejemplo.com" />
+
+        <label>Método de pago</label>
+        <div class="paymethods">
+          <button type="button" class="paymethod is-selected" id="pm-card" data-method="culqi">
+            <strong>Tarjeta / Yape</strong>
+            <span>Visa, Mastercard o Yape. Acceso inmediato.</span>
+          </button>
+          <button type="button" class="paymethod" id="pm-manual" data-method="manual">
+            <strong>Zelle · Pago Móvil · Binance</strong>
+            <span>Reporta tu pago y recibe acceso tras verificación.</span>
+          </button>
+        </div>
+
+        <!-- Datos para pago manual (solo visible si eligen ese método) -->
+        <div id="manual-block" hidden>
+          <div class="manual-info" id="manual-info"></div>
+          <label for="co-channel">¿Por dónde pagaste?</label>
+          <select id="co-channel">
+            <option value="zelle">Zelle</option>
+            <option value="pagomovil">Pago Móvil</option>
+            <option value="binance">Binance</option>
+            <option value="otro">Otro</option>
+          </select>
+          <label for="co-reference">Número de referencia del pago</label>
+          <input type="text" id="co-reference" placeholder="Ej. 003281745" />
+        </div>
+
+        <p class="checkout__error" id="co-error"></p>
+        <button type="submit" class="btn btn--primary checkout__submit" id="co-submit">Continuar al pago</button>
+      </form>
+
+      <!-- Paso final: confirmación -->
+      <div class="checkout__success" id="checkout-success" hidden>
+        <div class="ok-badge">✓</div>
+        <h3 id="cs-title">—</h3>
+        <p id="cs-body">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navegación inferior móvil / PWA -->
+  <nav class="pwa-dock" id="pwa-dock" aria-label="Secciones">
+    <a class="pwa-dock__btn" href="index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11L12 4l8 7v9a1 1 0 0 1-1 1h-5v-7H10v7H5a1 1 0 0 1-1-1v-9z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/></svg>
+      Inicio
+    </a>
+    <a class="pwa-dock__btn is-active" href="#contenido" data-section="contenido">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12M6 12h12M6 20h8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+      Contenido
+    </a>
+    <a class="pwa-dock__btn" href="#horarios" data-section="horarios">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.75"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+      Horarios
+    </a>
+    <a class="pwa-dock__btn" href="#faq" data-section="faq">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v10H6l-2 2V6zm5 4.2a2.6 2.6 0 0 1 5.2 0c0 1.6-2.6 1.5-2.6 3" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/><path d="M11.6 15.6h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Preguntas
+    </a>
+    <button type="button" class="pwa-dock__btn pwa-dock__btn--buy js-buy" data-course="dominio-de-la-palabra">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h2l2.4 10.4a1.5 1.5 0 0 0 1.46 1.1h7.3a1.5 1.5 0 0 0 1.45-1.1L20.5 9H7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10.5" cy="20.5" r="1" fill="currentColor"/><circle cx="17.5" cy="20.5" r="1" fill="currentColor"/></svg>
+      Inscribirme
+    </button>
+  </nav>
+
+  <script src="checkout.js" defer></script>
+  <script>
+    /* Nav: fondo al hacer scroll */
+    window.addEventListener('scroll', function() {
+      document.getElementById('nav').classList.toggle('is-scrolled', window.scrollY > 72);
+    }, { passive: true });
+
+    /* Aparición al hacer scroll (respeta prefers-reduced-motion vía CSS) */
+    (function reveals() {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function(el) { el.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(en) {
+          if (en.isIntersecting) {
+            en.target.classList.add('is-in');
+            io.unobserve(en.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      els.forEach(function(el) { io.observe(el); });
+    })();
+
+    /* PWA: service worker + dock activo por sección */
+    (function pwa() {
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('./sw.js').catch(function() {});
+        });
+      }
+      var dock = document.getElementById('pwa-dock');
+      if (!dock) return;
+      var dockBtns = dock.querySelectorAll('[data-section]');
+      var order = ['contenido', 'horarios', 'faq'];
+      function dockSpy() {
+        if (window.innerWidth > 940) return;
+        var y = window.scrollY + window.innerHeight * 0.32;
+        var active = 'contenido';
+        for (var i = order.length - 1; i >= 0; i--) {
+          var el = document.getElementById(order[i]);
+          if (el && el.offsetTop <= y) { active = order[i]; break; }
+        }
+        dockBtns.forEach(function(b) {
+          b.classList.toggle('is-active', b.getAttribute('data-section') === active);
+        });
+      }
+      window.addEventListener('scroll', function() {
+        window.requestAnimationFrame(dockSpy);
+      }, { passive: true });
+      window.addEventListener('resize', dockSpy, { passive: true });
+      dockSpy();
+      dock.addEventListener('click', function(ev) {
+        if (ev.target.closest('a, button') && navigator.vibrate) navigator.vibrate(8);
+      });
+    })();
+  </script>
+</body>
+</html>

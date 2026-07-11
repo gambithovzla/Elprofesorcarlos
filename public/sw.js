@@ -1,6 +1,6 @@
 /* El Profesor Carlos — cache ligero para PWA (GitHub Pages, subruta OK con rutas relativas) */
-var CACHE = 'epc-shell-v3';
-var PRECACHE = ['./index.html', './manifest.webmanifest', './icons/icon.svg', './images/hero.jpg', './images/about.jpg', './sw.js'];
+var CACHE = 'epc-shell-v4';
+var PRECACHE = ['./index.html', './curso.html', './checkout.js', './manifest.webmanifest', './icons/icon.svg', './images/hero.jpg', './images/about.jpg', './sw.js'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(
