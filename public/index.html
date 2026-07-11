@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="El Profesor Carlos — Formación en comunicación y liderazgo para profesionales que quieren voz propia." />
+  <meta name="description" content="El Profesor Carlos — Dominio de la Palabra: curso de oratoria y comunicación efectiva con el Método FARO®. Clases en vivo, enfoque práctico y mentorías." />
   <meta name="theme-color" content="#0b132b" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -404,6 +404,65 @@
     }
     .card__link:hover { gap: 0.95rem; }
     .card__link::after { content: '→'; }
+
+    /* Tarjeta destacada — curso único */
+    .card--feature {
+      grid-template-columns: 1.35fr 0.65fr;
+      display: grid;
+      gap: clamp(1.75rem, 4vw, 3rem);
+      padding: clamp(2rem, 4.5vw, 3.25rem);
+      border-color: rgba(107, 147, 173, 0.3);
+    }
+    .card--feature:hover { transform: translateY(-6px); }
+    .feature__main { display: flex; flex-direction: column; }
+    .card--feature .card__title {
+      font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+      font-style: italic;
+      font-weight: 500;
+    }
+    .feature__mods {
+      list-style: none;
+      display: grid;
+      gap: 0.6rem;
+      margin: 0 0 1.9rem;
+    }
+    .feature__mods li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.9rem;
+      font-size: 0.88rem;
+      color: #dbe2e8;
+      line-height: 1.5;
+    }
+    .feature__mods li strong {
+      flex-shrink: 0;
+      min-width: 5.2rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--copper);
+    }
+    .feature__aside {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.1rem;
+      border-left: 1px solid rgba(248, 249, 250, 0.1);
+      padding-left: clamp(1.75rem, 3vw, 2.75rem);
+    }
+    .feature__aside .card__price { font-size: 1.75rem; }
+    .feature__aside .btn { justify-content: center; }
+    .feature__hint { font-size: 0.7rem; color: var(--muted); line-height: 1.65; }
+    @media (max-width: 940px) {
+      .card--feature { grid-template-columns: 1fr; }
+      .feature__aside {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid rgba(248, 249, 250, 0.1);
+        padding-top: 1.6rem;
+      }
+    }
 
     /* ═══════════════════════════════════════════════
        ABOUT CARLOS
@@ -1003,7 +1062,7 @@
   <nav class="nav" id="nav" role="navigation" aria-label="Navegación principal">
     <a class="nav__logo" href="#hero">El Profesor <em>Carlos</em></a>
     <div class="nav__group">
-      <a class="nav__link" href="#catalogo">Cursos</a>
+      <a class="nav__link" href="curso.html">El curso</a>
       <a class="nav__link" href="#carlos">Carlos</a>
       <a class="btn btn--primary btn--sm" href="#contacto">Comenzar ahora</a>
     </div>
@@ -1018,8 +1077,8 @@
         <h1 class="hero__h1">Tu conocimiento<br>no basta si tu<br><em>voz</em> no resuena.</h1>
         <p class="hero__sub">De experto técnico a líder que inspira. Comunicación con método. Liderazgo con propósito.</p>
         <div class="hero__ctas">
-          <a class="btn btn--primary" href="#catalogo">Descubre el método</a>
-          <a class="btn btn--ghost" href="#catalogo">Ver cursos</a>
+          <a class="btn btn--primary" href="curso.html">Descubre el curso</a>
+          <a class="btn btn--ghost" href="#catalogo">Inscripción</a>
         </div>
       </div>
       <div class="hero__visual">
@@ -1030,18 +1089,18 @@
     <!-- ═══ TICKER ═══ -->
     <div class="ticker-belt" aria-hidden="true">
       <div class="ticker-track">
-        <span class="ticker-item">Oratoria y presentaciones<span class="dot">·</span></span>
-        <span class="ticker-item">Comunicación asertiva<span class="dot">·</span></span>
-        <span class="ticker-item">Liderazgo y equipos<span class="dot">·</span></span>
-        <span class="ticker-item">Storytelling profesional<span class="dot">·</span></span>
-        <span class="ticker-item">Gestión del discurso<span class="dot">·</span></span>
-        <span class="ticker-item">Mentoría ejecutiva<span class="dot">·</span></span>
-        <span class="ticker-item">Oratoria y presentaciones<span class="dot">·</span></span>
-        <span class="ticker-item">Comunicación asertiva<span class="dot">·</span></span>
-        <span class="ticker-item">Liderazgo y equipos<span class="dot">·</span></span>
-        <span class="ticker-item">Storytelling profesional<span class="dot">·</span></span>
-        <span class="ticker-item">Gestión del discurso<span class="dot">·</span></span>
-        <span class="ticker-item">Mentoría ejecutiva<span class="dot">·</span></span>
+        <span class="ticker-item">Oratoria y comunicación efectiva<span class="dot">·</span></span>
+        <span class="ticker-item">Voz y respiración<span class="dot">·</span></span>
+        <span class="ticker-item">Dicción y modulación<span class="dot">·</span></span>
+        <span class="ticker-item">Vence el miedo escénico<span class="dot">·</span></span>
+        <span class="ticker-item">Lenguaje corporal<span class="dot">·</span></span>
+        <span class="ticker-item">Método FARO®<span class="dot">·</span></span>
+        <span class="ticker-item">Oratoria y comunicación efectiva<span class="dot">·</span></span>
+        <span class="ticker-item">Voz y respiración<span class="dot">·</span></span>
+        <span class="ticker-item">Dicción y modulación<span class="dot">·</span></span>
+        <span class="ticker-item">Vence el miedo escénico<span class="dot">·</span></span>
+        <span class="ticker-item">Lenguaje corporal<span class="dot">·</span></span>
+        <span class="ticker-item">Método FARO®<span class="dot">·</span></span>
       </div>
     </div>
 
@@ -1054,23 +1113,23 @@
 
     <!-- ═══ METHODOLOGY ═══ -->
     <section class="wrap method" id="metodo">
-      <p class="label">El método</p>
-      <h2 class="method__head">Tres pilares. Un sistema. Resultados medibles.</h2>
+      <p class="label">El Método FARO®</p>
+      <h2 class="method__head">Tres módulos. Un camino: de la voz al orador.</h2>
       <div class="pillars">
         <div class="pillar">
-          <p class="pillar__n">01</p>
-          <h3 class="pillar__title">Voz y presencia</h3>
-          <p class="pillar__body">Proyección, ritmo y lenguaje corporal. El 55% del mensaje es no verbal: aprende a controlarlo con precisión sostenida.</p>
+          <p class="pillar__n">MÓDULO I</p>
+          <h3 class="pillar__title">La Voz, la Respiración y la Presencia</h3>
+          <p class="pillar__body">Domina el instrumento más importante del orador: tu propia voz. Respiración diafragmática, postura corporal, contacto visual y proyección de seguridad.</p>
         </div>
         <div class="pillar">
-          <p class="pillar__n">02</p>
-          <h3 class="pillar__title">Claridad y estructura</h3>
-          <p class="pillar__body">Argumentación, narrativa y síntesis ejecutiva. Construye discursos que se recuerdan, convencen y permanecen.</p>
+          <p class="pillar__n">MÓDULO II</p>
+          <h3 class="pillar__title">Dicción, Modulación y Expresión</h3>
+          <p class="pillar__body">Las palabras adquieren poder cuando se pronuncian con claridad y naturalidad. Vocalización, musicalidad de la voz y eliminación de vicios del lenguaje.</p>
         </div>
         <div class="pillar">
-          <p class="pillar__n">03</p>
-          <h3 class="pillar__title">Liderazgo comunicativo</h3>
-          <p class="pillar__body">Conversaciones difíciles, feedback y gestión del conflicto. Comunica desde la autoridad, no desde el ego.</p>
+          <p class="pillar__n">MÓDULO III</p>
+          <h3 class="pillar__title">El Orador en Acción</h3>
+          <p class="pillar__body">Comunicar es conectar con las personas. Vence el miedo escénico, domina el espacio y el micrófono, y expresa presencia y energía.</p>
         </div>
       </div>
     </section>
@@ -1078,36 +1137,27 @@
     <!-- ═══ CATALOG ═══ -->
     <section class="wrap catalog" id="catalogo">
       <header class="catalog__meta">
-        <p class="label">Programas pilar</p>
-        <h2 class="catalog__h2">Formación para profesionales</h2>
-        <p class="catalog__sub">Tres líneas de trabajo para quienes necesitan voz propia en salas de juntas, aulas y presentaciones de alto impacto.</p>
+        <p class="label">El curso</p>
+        <h2 class="catalog__h2">Dominio de la Palabra</h2>
+        <p class="catalog__sub">Curso de oratoria y comunicación efectiva basado en el Método FARO®. Clases en vivo, enfoque 100 % práctico y mentorías de acompañamiento.</p>
       </header>
       <div class="cards">
-        <article class="card">
-          <p class="card__n">01 · Oratoria</p>
-          <h3 class="card__title">Oratoria y presentaciones eficaces</h3>
-          <p class="card__body">Habla en público con estructura, calma y convicción. Proyección vocal, dominio del miedo escénico y discursos que perduran en la memoria de la audiencia.</p>
-          <div class="card__foot">
-            <span class="card__price" data-price-for="oratoria"><small>Curso + sesiones en vivo</small>—</span>
-            <button type="button" class="btn btn--primary btn--sm js-buy" data-course="oratoria">Comprar</button>
+        <article class="card card--feature">
+          <div class="feature__main">
+            <p class="card__n">Programa insignia · Método FARO®</p>
+            <h3 class="card__title">"Formamos oradores y profesionales que transforman vidas."</h3>
+            <p class="card__body">Controla los nervios y vence el miedo escénico. Domina tu voz, tu respiración y tu dicción. Habla con seguridad, claridad y presencia ante cualquier público.</p>
+            <ul class="feature__mods">
+              <li><strong>Módulo I</strong>La Voz, la Respiración y la Presencia</li>
+              <li><strong>Módulo II</strong>Dicción, Modulación y Expresión</li>
+              <li><strong>Módulo III</strong>El Orador en Acción</li>
+            </ul>
+            <a class="card__link" href="curso.html">Ver el curso completo, horarios y preguntas frecuentes</a>
           </div>
-        </article>
-        <article class="card">
-          <p class="card__n">02 · Comunicación</p>
-          <h3 class="card__title">Comunicación asertiva</h3>
-          <p class="card__body">Mensajes claros en cualquier medio: reuniones, correos y negociaciones. Presencia sin ruido. Influencia sin imposición.</p>
-          <div class="card__foot">
-            <span class="card__price" data-price-for="comunicacion-asertiva"><small>Curso + sesiones en vivo</small>—</span>
-            <button type="button" class="btn btn--primary btn--sm js-buy" data-course="comunicacion-asertiva">Comprar</button>
-          </div>
-        </article>
-        <article class="card">
-          <p class="card__n">03 · Liderazgo</p>
-          <h3 class="card__title">Liderazgo y equipos</h3>
-          <p class="card__body">Inspirar, alinear y decidir con criterio. Liderazgo situacional, feedback de alto impacto y conversaciones difíciles con método.</p>
-          <div class="card__foot">
-            <span class="card__price" data-price-for="liderazgo"><small>Curso + sesiones en vivo</small>—</span>
-            <button type="button" class="btn btn--primary btn--sm js-buy" data-course="liderazgo">Comprar</button>
+          <div class="feature__aside">
+            <span class="card__price" data-price-for="dominio-de-la-palabra" data-price-label="Clases en vivo + mentorías">—</span>
+            <button type="button" class="btn btn--primary js-buy" data-course="dominio-de-la-palabra">Inscribirme ahora</button>
+            <p class="feature__hint">Cupos por grupo · 4 horarios disponibles · Sin experiencia previa</p>
           </div>
         </article>
       </div>
@@ -1120,13 +1170,13 @@
       </div>
       <div class="about__copy">
         <p class="label">Quién es Carlos</p>
-        <h2 class="about__h2">Comunicador, formador y estratega del mensaje.</h2>
-        <p class="about__p">Con más de una década entrenando a ejecutivos, emprendedores y universitarios, Carlos ha perfeccionado un método que combina psicología del discurso, técnica vocal y liderazgo práctico aplicado.</p>
-        <p class="about__p">No enseña a hablar. Enseña a <em>resonar</em>.</p>
+        <h2 class="about__h2">Carlos Reyes Lopenza. Profesor, locutor y formador de oradores.</h2>
+        <p class="about__p">Profesor en Educación Comercial y locutor profesional, Carlos ha combinado durante años la educación, la comunicación y las herramientas profesionales para formar personas capaces de expresarse con seguridad y transmitir conocimientos con claridad.</p>
+        <p class="about__p"><em>"No basta con saber. También hay que saber comunicar."</em></p>
         <div class="creds">
-          <p class="cred">Formador de directivos y equipos de alto rendimiento</p>
-          <p class="cred">Consultor en comunicación estratégica para empresas</p>
-          <p class="cred">Ponente en programas ejecutivos, MBA y conferencias</p>
+          <p class="cred">Profesor en Educación Comercial</p>
+          <p class="cred">Locutor profesional</p>
+          <p class="cred">Creador del curso Dominio de la Palabra, basado en el Método FARO®</p>
         </div>
       </div>
     </section>
@@ -1223,7 +1273,7 @@
     </a>
     <a class="pwa-dock__btn" href="#catalogo" data-section="catalogo">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12M6 12h12M6 20h8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
-      Cursos
+      El curso
     </a>
     <a class="pwa-dock__btn" href="#carlos" data-section="carlos">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.75"/><path d="M6.5 20v-1a3.5 3.5 0 0 1 3.5-3.5h4a3.5 3.5 0 0 1 3.5 3.5v1" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
@@ -1265,6 +1315,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="checkout.js" defer></script>
 
   <script>
     /* ════════════════════════════════════════════════════════════════════
@@ -1353,223 +1404,6 @@
       document.getElementById('form-ok').hidden = false;
       this.reset();
     });
-
-    /* ── 4b. CHECKOUT (compra de cursos) ── */
-    (function checkout() {
-      var COURSES = {};        // slug → {title, price_pen, sessions_included}
-      var CONFIG = null;       // llaves públicas + datos de pago manual
-      var current = null;      // curso seleccionado
-      var purchaseId = null;   // compra creada en el backend
-      var culqiLoaded = false;
-
-      var $modal = document.getElementById('checkout');
-      var $form = document.getElementById('checkout-form');
-      var $success = document.getElementById('checkout-success');
-      var $title = document.getElementById('co-title');
-      var $price = document.getElementById('co-price');
-      var $sessions = document.getElementById('co-sessions');
-      var $name = document.getElementById('co-name');
-      var $email = document.getElementById('co-email');
-      var $error = document.getElementById('co-error');
-      var $submit = document.getElementById('co-submit');
-      var $manualBlock = document.getElementById('manual-block');
-      var $manualInfo = document.getElementById('manual-info');
-      var method = 'culqi';
-
-      function fmtPEN(n) {
-        return 'S/ ' + Number(n).toFixed(2);
-      }
-
-      /* Carga catálogo y config; rellena precios en las cards */
-      fetch('/api/courses').then(function(r) { return r.json(); }).then(function(list) {
-        list.forEach(function(c) {
-          COURSES[c.slug] = c;
-          var el = document.querySelector('[data-price-for="' + c.slug + '"]');
-          if (el) el.innerHTML = '<small>Curso + ' + c.sessions_included + ' sesiones en vivo</small>' + fmtPEN(c.price_pen);
-        });
-      }).catch(function() {});
-      fetch('/api/config').then(function(r) { return r.json(); }).then(function(cfg) { CONFIG = cfg; }).catch(function() {});
-
-      function showError(msg) {
-        $error.textContent = msg;
-        $error.classList.add('is-visible');
-      }
-      function clearError() {
-        $error.classList.remove('is-visible');
-      }
-      function setBusy(busy, label) {
-        $submit.disabled = busy;
-        $submit.textContent = label || (busy ? 'Procesando…' : 'Continuar al pago');
-      }
-
-      function renderManualInfo() {
-        if (!CONFIG) return;
-        var mp = CONFIG.manualPayment || {};
-        var rows = [];
-        if (mp.zelle)     rows.push('<p><strong>Zelle:</strong> ' + mp.zelle + '</p>');
-        if (mp.pagomovil) rows.push('<p><strong>Pago Móvil:</strong> ' + mp.pagomovil + '</p>');
-        if (mp.binance)   rows.push('<p><strong>Binance:</strong> ' + mp.binance + '</p>');
-        if (!rows.length) rows.push('<p>Escríbenos para coordinar el pago y luego reporta aquí tu referencia.</p>');
-        $manualInfo.innerHTML = '<h4>Realiza tu pago a</h4>' + rows.join('') +
-          '<p>Monto: <strong>' + fmtPEN(current.price_pen) + '</strong> (o su equivalente acordado)</p>';
-      }
-
-      function selectMethod(m) {
-        method = m;
-        document.getElementById('pm-card').classList.toggle('is-selected', m === 'culqi');
-        document.getElementById('pm-manual').classList.toggle('is-selected', m === 'manual');
-        $manualBlock.hidden = m !== 'manual';
-        $submit.textContent = m === 'manual' ? 'Reportar mi pago' : 'Continuar al pago';
-        if (m === 'manual') renderManualInfo();
-        clearError();
-      }
-      document.getElementById('pm-card').addEventListener('click', function() { selectMethod('culqi'); });
-      document.getElementById('pm-manual').addEventListener('click', function() { selectMethod('manual'); });
-
-      function openCheckout(slug) {
-        current = COURSES[slug];
-        if (!current) { window.location.hash = '#contacto'; return; }
-        purchaseId = null;
-        $title.textContent = current.title;
-        $price.textContent = fmtPEN(current.price_pen);
-        $sessions.textContent = current.sessions_included;
-        $form.hidden = false;
-        $success.hidden = true;
-        clearError();
-        setBusy(false);
-        selectMethod('culqi');
-        $modal.hidden = false;
-        requestAnimationFrame(function() { $modal.classList.add('is-open'); });
-        document.body.style.overflow = 'hidden';
-      }
-      function closeCheckout() {
-        $modal.classList.remove('is-open');
-        document.body.style.overflow = '';
-        setTimeout(function() { $modal.hidden = true; }, 280);
-      }
-      document.querySelectorAll('.js-buy').forEach(function(btn) {
-        btn.addEventListener('click', function() { openCheckout(btn.getAttribute('data-course')); });
-      });
-      document.getElementById('checkout-close').addEventListener('click', closeCheckout);
-      $modal.addEventListener('click', function(ev) { if (ev.target === $modal) closeCheckout(); });
-      document.addEventListener('keydown', function(ev) {
-        if (ev.key === 'Escape' && !$modal.hidden) closeCheckout();
-      });
-
-      function showSuccess(title, body) {
-        $form.hidden = true;
-        $success.hidden = false;
-        document.getElementById('cs-title').textContent = title;
-        document.getElementById('cs-body').textContent = body;
-      }
-
-      function api(path, body) {
-        return fetch(path, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body),
-        }).then(function(r) {
-          return r.json().then(function(data) {
-            if (!r.ok) throw new Error(data.error || 'Ocurrió un error. Inténtalo de nuevo.');
-            return data;
-          });
-        });
-      }
-
-      /* Carga perezosa del script de Culqi Checkout */
-      function loadCulqi() {
-        return new Promise(function(resolve, reject) {
-          if (culqiLoaded && window.Culqi) return resolve();
-          var s = document.createElement('script');
-          s.src = 'https://checkout.culqi.com/js/v4';
-          s.onload = function() { culqiLoaded = true; resolve(); };
-          s.onerror = function() { reject(new Error('No se pudo cargar la pasarela de pago. Revisa tu conexión.')); };
-          document.head.appendChild(s);
-        });
-      }
-
-      /* Culqi invoca window.culqi() cuando el comprador completa el formulario de tarjeta */
-      window.culqi = function() {
-        if (window.Culqi && Culqi.token) {
-          var tokenId = Culqi.token.id;
-          Culqi.close();
-          setBusy(true, 'Confirmando tu pago…');
-          api('/api/purchases/' + purchaseId + '/charge', { tokenId: tokenId })
-            .then(function(res) {
-              showSuccess('¡Pago confirmado!', 'Tu acceso está listo. Te estamos redirigiendo a tu curso…');
-              setTimeout(function() { window.location.href = res.accessUrl; }, 1600);
-            })
-            .catch(function(err) {
-              setBusy(false);
-              showError(err.message);
-            });
-        } else if (window.Culqi && Culqi.error) {
-          setBusy(false);
-          showError(Culqi.error.user_message || 'El pago no pudo procesarse.');
-        }
-      };
-
-      $form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        clearError();
-        var name = $name.value.trim();
-        var email = $email.value.trim();
-        if (name.length < 2) return showError('Ingresa tu nombre completo.');
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('Ingresa un correo válido.');
-
-        if (method === 'manual') {
-          var reference = document.getElementById('co-reference').value.trim();
-          if (reference.length < 4) return showError('Ingresa el número de referencia de tu pago.');
-          setBusy(true, 'Enviando…');
-          api('/api/purchases', {
-            courseSlug: current.slug,
-            buyerName: name,
-            buyerEmail: email,
-            method: 'manual',
-            manualChannel: document.getElementById('co-channel').value,
-            manualReference: reference,
-          }).then(function() {
-            showSuccess('Pago en verificación', 'Recibimos tu reporte. En cuanto confirmemos el pago (normalmente en pocas horas) te llegará un correo a ' + email + ' con tu acceso al curso y a las sesiones en vivo.');
-          }).catch(function(err) {
-            setBusy(false);
-            showError(err.message);
-          });
-          return;
-        }
-
-        /* Tarjeta / Yape vía Culqi */
-        if (!CONFIG || !CONFIG.culqiPublicKey) {
-          return showError('Los pagos con tarjeta aún no están habilitados. Usa la opción Zelle · Pago Móvil · Binance o inténtalo más tarde.');
-        }
-        setBusy(true, 'Abriendo pago seguro…');
-        api('/api/purchases', {
-          courseSlug: current.slug,
-          buyerName: name,
-          buyerEmail: email,
-          method: 'culqi',
-        }).then(function(res) {
-          purchaseId = res.purchaseId;
-          return loadCulqi().then(function() {
-            Culqi.publicKey = CONFIG.culqiPublicKey;
-            Culqi.settings({
-              title: 'El Profesor Carlos',
-              currency: 'PEN',
-              amount: Math.round(Number(res.amountPen) * 100),
-            });
-            Culqi.options({
-              lang: 'auto',
-              installments: false,
-              paymentMethods: { tarjeta: true, yape: true },
-            });
-            setBusy(false, 'Reabrir pago');
-            Culqi.open();
-          });
-        }).catch(function(err) {
-          setBusy(false);
-          showError(err.message);
-        });
-      });
-    })();
 
     /* PWA: service worker, lightbox fotos, barra inferior móvil */
     (function pwaMobile() {
