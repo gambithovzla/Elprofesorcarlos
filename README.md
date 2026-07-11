@@ -22,7 +22,7 @@ Sitio de venta de cursos con pasarela de pago, entrega segura de PDFs y agendami
    - `APP_BASE_URL` — la URL pública del servicio (se usa en los correos).
    - `PDF_DIR=/data/pdfs`
    - `ZELLE_INFO`, `PAGOMOVIL_INFO`, `BINANCE_INFO` — los datos de cobro que ve el comprador en el pago manual.
-5. Deploy. El comando de arranque (`railway.json`) crea las tablas y siembra los 3 cursos automáticamente.
+5. Deploy. El comando de arranque (`railway.json`) crea las tablas y siembra el curso **Dominio de la Palabra** automáticamente (desactivando los cursos de prueba si existían).
 6. Entrar a `/admin`, poner precios reales, subir los PDFs y publicar los primeros horarios.
 
 ### Cuando compren el dominio
